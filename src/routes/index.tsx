@@ -243,10 +243,10 @@ function LandingPage() {
       </section>
 
       {/* Icon Library Showcase */}
-      <section id="icons" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
+      <section id="icons" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="text-sm font-bold text-amit-teal tracking-widest uppercase">ספריית UI</div>
-          <h2 className="text-3xl md:text-5xl font-black mt-2">אייקונים עגולים מותאמים אמית</h2>
+          <div className="text-xs sm:text-sm font-bold text-amit-teal tracking-widest uppercase">ספריית UI</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">אייקונים עגולים מותאמים אמית</h2>
           <p className="text-amit-navy/70 mt-3 max-w-2xl mx-auto">
             ערכת אייקונים עקבית למצבי המשחק והניווט בבילדר. כל אייקון מגיע עם Fallback אוטומטי
             במקרה שתמונת המקור לא נטענת — לשמירה על שלמות עיצובית.
