@@ -435,6 +435,21 @@ function LandingPage() {
         </div>
 
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 bg-gradient-to-l from-amit-sky/20 via-white to-amit-sky/10 rounded-2xl p-3 sm:p-5 border border-amit-sky/30 shadow-[var(--shadow-card)] overflow-x-auto"
+        >
+          <img
+            src={toolbarExercise}
+            alt="סרגל רכיבי תרגול בבילדר"
+            className="mx-auto w-full max-w-4xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
+
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
