@@ -36,6 +36,10 @@ export const Route = createRootRoute({
       { property: "og:description", content: "תיעוד הבילדר המונגש של רשת אמית למפתחים." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Builder אמית — סביבת בנייה דיגיטלית מונגשת" },
+      { name: "twitter:description", content: "תיעוד הבילדר המונגש של רשת אמית למפתחים." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/51cca13f-35ca-426d-b20e-fe102ef358fb/id-preview-09f493c5--9cff4603-9281-4b60-b181-10a675e4ab25.lovable.app-1776623549087.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/51cca13f-35ca-426d-b20e-fe102ef358fb/id-preview-09f493c5--9cff4603-9281-4b60-b181-10a675e4ab25.lovable.app-1776623549087.png" },
     ],
     links: [
       {
