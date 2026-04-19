@@ -43,7 +43,7 @@ export function StyledCircularIcon({
       className={`${colorMap[color]} ${sizeMap[size]} rounded-full flex items-center justify-center shadow-[var(--shadow-card)] shrink-0 overflow-hidden ring-2 ring-white/40`}
     >
       {errored ? (
-        <Fallback className="h-1/2 w-1/2 text-white" strokeWidth={2.2} />
+        <Fallback className="h-1/2 w-1/2 text-white" />
       ) : (
         <img
           src={src}
