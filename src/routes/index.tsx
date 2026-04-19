@@ -276,8 +276,8 @@ function LandingPage() {
       </section>
 
       {/* Developer / Stack */}
-      <section id="stack" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-5">
+      <section id="stack" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
           <FeatureBlock
             icon={Accessibility}
             title="נגישות מובנית"
@@ -301,17 +301,17 @@ function LandingPage() {
           />
         </div>
 
-        <div className="mt-10 bg-amit-navy text-white rounded-3xl p-10 md:p-14 relative overflow-hidden shadow-[var(--shadow-soft)]">
+        <div className="mt-10 bg-amit-navy text-white rounded-3xl p-8 sm:p-10 md:p-14 relative overflow-hidden shadow-[var(--shadow-soft)]">
           <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-amit-lime/30 blur-3xl" />
           <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-amit-sky/30 blur-3xl" />
-          <div className="relative z-10 max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-black text-white">
+          <div className="relative z-10 max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
               מוכנים להתחיל לבנות?
             </h2>
-            <p className="mt-4 text-white/80 text-lg leading-relaxed">
+            <p className="mt-4 text-white/80 text-base sm:text-lg leading-relaxed">
               סקור את התיעוד המלא של הרכיבים, ה-Hooks וה-API. אם יש שאלות — צוות הפיתוח של אמית כאן בשבילך.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 bg-amit-lime text-amit-navy px-7 py-3.5 rounded-full font-bold hover:bg-white transition"
