@@ -299,7 +299,7 @@ function LandingPage() {
               href="#stack"
               className="inline-flex items-center gap-2 bg-white/70 backdrop-blur border border-amit-navy/15 text-amit-navy px-6 py-3.5 rounded-full font-semibold hover:bg-white transition"
             >
-              <BookOpen className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
               המדריך הטכני
             </motion.a>
           </motion.div>
