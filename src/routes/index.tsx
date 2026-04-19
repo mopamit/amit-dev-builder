@@ -133,8 +133,8 @@ function LandingPage() {
       <div className="pointer-events-none absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-amit-sky/20 blur-3xl" />
 
       {/* Header */}
-      <header className="relative z-10 px-6 md:px-12 pt-6 pb-4 flex items-center justify-between">
-        <nav className="flex items-center gap-3 text-sm font-semibold text-amit-navy/70">
+      <header className="relative z-10 px-4 sm:px-6 md:px-12 pt-6 pb-4 flex items-center justify-between gap-4 flex-wrap-reverse">
+        <nav className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-amit-navy/70">
           <a href="#components" className="hover:text-amit-navy transition">רכיבים</a>
           <span className="opacity-30">·</span>
           <a href="#icons" className="hover:text-amit-navy transition">אייקונים</a>
@@ -144,29 +144,29 @@ function LandingPage() {
         <img
           src={amitLogo}
           alt="לוגו רשת אמית"
-          className="h-12 md:h-16 w-auto object-contain"
+          className="h-10 sm:h-12 md:h-16 w-auto object-contain"
         />
       </header>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-12 pt-12 pb-20 max-w-6xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full bg-amit-lime/20 border border-amit-lime/40 px-4 py-1.5 text-sm font-semibold text-amit-olive mb-6">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 pb-16 sm:pb-20 max-w-6xl mx-auto text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-amit-lime/20 border border-amit-lime/40 px-4 py-1.5 text-xs sm:text-sm font-semibold text-amit-olive mb-6">
           <Sparkles className="h-4 w-4" />
           תיעוד למפתחים · גרסה 1.0
         </div>
-        <h1 className="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
           הבילדר הדיגיטלי
           <br />
           <span className="bg-gradient-to-l from-amit-sky to-amit-teal bg-clip-text text-transparent">
             המונגש של אמית
           </span>
         </h1>
-        <p className="mt-6 max-w-2xl text-lg md:text-xl text-amit-navy/75 leading-relaxed">
+        <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-amit-navy/75 leading-relaxed">
           סביבת בנייה ליצירת שיעורים אינטראקטיביים, נגישים ומותאמים אישית.
           רכיבי הצגת תוכן ורכיבי תרגול שמאפשרים למורים לבנות חוויית למידה עשירה — ולכם, המפתחים, ארכיטקטורת רכיבים ברורה ומודולרית.
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#components"
             className="group inline-flex items-center gap-3 bg-amit-navy text-white px-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
