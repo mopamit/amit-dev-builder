@@ -133,8 +133,8 @@ function LandingPage() {
       <div className="pointer-events-none absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-amit-sky/20 blur-3xl" />
 
       {/* Header */}
-      <header className="relative z-10 px-6 md:px-12 pt-6 pb-4 flex items-center justify-between">
-        <nav className="flex items-center gap-3 text-sm font-semibold text-amit-navy/70">
+      <header className="relative z-10 px-4 sm:px-6 md:px-12 pt-6 pb-4 flex items-center justify-between gap-4 flex-wrap-reverse">
+        <nav className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-amit-navy/70">
           <a href="#components" className="hover:text-amit-navy transition">רכיבים</a>
           <span className="opacity-30">·</span>
           <a href="#icons" className="hover:text-amit-navy transition">אייקונים</a>
@@ -144,29 +144,29 @@ function LandingPage() {
         <img
           src={amitLogo}
           alt="לוגו רשת אמית"
-          className="h-12 md:h-16 w-auto object-contain"
+          className="h-10 sm:h-12 md:h-16 w-auto object-contain"
         />
       </header>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-12 pt-12 pb-20 max-w-6xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full bg-amit-lime/20 border border-amit-lime/40 px-4 py-1.5 text-sm font-semibold text-amit-olive mb-6">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 pb-16 sm:pb-20 max-w-6xl mx-auto text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-amit-lime/20 border border-amit-lime/40 px-4 py-1.5 text-xs sm:text-sm font-semibold text-amit-olive mb-6">
           <Sparkles className="h-4 w-4" />
           תיעוד למפתחים · גרסה 1.0
         </div>
-        <h1 className="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
           הבילדר הדיגיטלי
           <br />
           <span className="bg-gradient-to-l from-amit-sky to-amit-teal bg-clip-text text-transparent">
             המונגש של אמית
           </span>
         </h1>
-        <p className="mt-6 max-w-2xl text-lg md:text-xl text-amit-navy/75 leading-relaxed">
+        <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-amit-navy/75 leading-relaxed">
           סביבת בנייה ליצירת שיעורים אינטראקטיביים, נגישים ומותאמים אישית.
           רכיבי הצגת תוכן ורכיבי תרגול שמאפשרים למורים לבנות חוויית למידה עשירה — ולכם, המפתחים, ארכיטקטורת רכיבים ברורה ומודולרית.
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#components"
             className="group inline-flex items-center gap-3 bg-amit-navy text-white px-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
@@ -203,19 +203,19 @@ function LandingPage() {
       </section>
 
       {/* Content Components */}
-      <section id="components" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <section id="components" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <StyledCircularIcon driveId={driveIcons.instructions} alt="הוראות" color="lime" size="lg" />
           <div>
-            <div className="text-sm font-bold text-amit-lime tracking-widest uppercase">חלק א׳</div>
-            <h2 className="text-3xl md:text-5xl font-black mt-2">רכיבי הצגת תוכן</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl">
+            <div className="text-xs sm:text-sm font-bold text-amit-lime tracking-widest uppercase">חלק א׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי הצגת תוכן</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות.
             </p>
           </div>
-          <StyledCircularIcon driveId={driveIcons.instructions} alt="הוראות" color="lime" size="lg" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {contentComponents.map((c) => (
             <ComponentCard key={c.title} {...c} />
           ))}
@@ -223,19 +223,19 @@ function LandingPage() {
       </section>
 
       {/* Exercise Components */}
-      <section className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <StyledCircularIcon driveId={driveIcons.trophy} alt="הישגים" color="sky" size="lg" />
           <div>
-            <div className="text-sm font-bold text-amit-mint tracking-widest uppercase">חלק ב׳</div>
-            <h2 className="text-3xl md:text-5xl font-black mt-2">רכיבי תרגול</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl">
+            <div className="text-xs sm:text-sm font-bold text-amit-mint tracking-widest uppercase">חלק ב׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי תרגול</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים אינטראקטיביים שמאפשרים לתלמיד לתרגל, לכתוב ולהיבדק.
             </p>
           </div>
-          <StyledCircularIcon driveId={driveIcons.trophy} alt="הישגים" color="sky" size="lg" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid sm:grid-cols-2 gap-5">
           {exerciseComponents.map((c) => (
             <ComponentCard key={c.title} {...c} />
           ))}
@@ -243,18 +243,18 @@ function LandingPage() {
       </section>
 
       {/* Icon Library Showcase */}
-      <section id="icons" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
+      <section id="icons" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="text-sm font-bold text-amit-teal tracking-widest uppercase">ספריית UI</div>
-          <h2 className="text-3xl md:text-5xl font-black mt-2">אייקונים עגולים מותאמים אמית</h2>
+          <div className="text-xs sm:text-sm font-bold text-amit-teal tracking-widest uppercase">ספריית UI</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">אייקונים עגולים מותאמים אמית</h2>
           <p className="text-amit-navy/70 mt-3 max-w-2xl mx-auto">
             ערכת אייקונים עקבית למצבי המשחק והניווט בבילדר. כל אייקון מגיע עם Fallback אוטומטי
             במקרה שתמונת המקור לא נטענת — לשמירה על שלמות עיצובית.
           </p>
         </div>
 
-        <div className="bg-white/60 backdrop-blur rounded-3xl border border-amit-navy/10 p-8 md:p-10 shadow-[var(--shadow-card)]">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 place-items-center">
+        <div className="bg-white/60 backdrop-blur rounded-3xl border border-amit-navy/10 p-6 sm:p-8 md:p-10 shadow-[var(--shadow-card)]">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6 place-items-center">
             <IconLabel id={driveIcons.start} label="התחל" color="lime" fallback={Sparkles} />
             <IconLabel id={driveIcons.home} label="בית" color="navy" />
             <IconLabel id={driveIcons.menu} label="תפריט" color="teal" />
@@ -276,8 +276,8 @@ function LandingPage() {
       </section>
 
       {/* Developer / Stack */}
-      <section id="stack" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-5">
+      <section id="stack" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
           <FeatureBlock
             icon={Accessibility}
             title="נגישות מובנית"
@@ -301,17 +301,17 @@ function LandingPage() {
           />
         </div>
 
-        <div className="mt-10 bg-amit-navy text-white rounded-3xl p-10 md:p-14 relative overflow-hidden shadow-[var(--shadow-soft)]">
+        <div className="mt-10 bg-amit-navy text-white rounded-3xl p-8 sm:p-10 md:p-14 relative overflow-hidden shadow-[var(--shadow-soft)]">
           <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-amit-lime/30 blur-3xl" />
           <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-amit-sky/30 blur-3xl" />
-          <div className="relative z-10 max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-black text-white">
+          <div className="relative z-10 max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
               מוכנים להתחיל לבנות?
             </h2>
-            <p className="mt-4 text-white/80 text-lg leading-relaxed">
+            <p className="mt-4 text-white/80 text-base sm:text-lg leading-relaxed">
               סקור את התיעוד המלא של הרכיבים, ה-Hooks וה-API. אם יש שאלות — צוות הפיתוח של אמית כאן בשבילך.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 bg-amit-lime text-amit-navy px-7 py-3.5 rounded-full font-bold hover:bg-white transition"
