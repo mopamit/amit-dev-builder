@@ -203,19 +203,19 @@ function LandingPage() {
       </section>
 
       {/* Content Components */}
-      <section id="components" className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <section id="components" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <StyledCircularIcon driveId={driveIcons.instructions} alt="הוראות" color="lime" size="lg" />
           <div>
-            <div className="text-sm font-bold text-amit-lime tracking-widest uppercase">חלק א׳</div>
-            <h2 className="text-3xl md:text-5xl font-black mt-2">רכיבי הצגת תוכן</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl">
+            <div className="text-xs sm:text-sm font-bold text-amit-lime tracking-widest uppercase">חלק א׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי הצגת תוכן</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות.
             </p>
           </div>
-          <StyledCircularIcon driveId={driveIcons.instructions} alt="הוראות" color="lime" size="lg" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {contentComponents.map((c) => (
             <ComponentCard key={c.title} {...c} />
           ))}
@@ -223,19 +223,19 @@ function LandingPage() {
       </section>
 
       {/* Exercise Components */}
-      <section className="relative z-10 px-6 md:px-12 py-16 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <StyledCircularIcon driveId={driveIcons.trophy} alt="הישגים" color="sky" size="lg" />
           <div>
-            <div className="text-sm font-bold text-amit-mint tracking-widest uppercase">חלק ב׳</div>
-            <h2 className="text-3xl md:text-5xl font-black mt-2">רכיבי תרגול</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl">
+            <div className="text-xs sm:text-sm font-bold text-amit-mint tracking-widest uppercase">חלק ב׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי תרגול</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים אינטראקטיביים שמאפשרים לתלמיד לתרגל, לכתוב ולהיבדק.
             </p>
           </div>
-          <StyledCircularIcon driveId={driveIcons.trophy} alt="הישגים" color="sky" size="lg" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid sm:grid-cols-2 gap-5">
           {exerciseComponents.map((c) => (
             <ComponentCard key={c.title} {...c} />
           ))}
