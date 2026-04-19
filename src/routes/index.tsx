@@ -383,17 +383,22 @@ function LandingPage() {
             <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות.
             </p>
-          </div>
         </div>
 
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 bg-gradient-to-l from-amit-lime/20 via-white to-amit-lime/10 rounded-2xl p-3 sm:p-5 border border-amit-lime/30 shadow-[var(--shadow-card)] overflow-x-auto"
         >
-          {contentComponents.map((c) => (
+          <img
+            src={toolbarContent}
+            alt="סרגל רכיבי הצגת תוכן בבילדר"
+            className="mx-auto w-full max-w-3xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
             <ComponentCard key={c.title} {...c} />
           ))}
         </motion.div>
