@@ -17,8 +17,6 @@ import {
   ShieldCheck,
   Accessibility,
   ArrowLeft,
-  Github,
-  BookOpen,
   Lightbulb,
   Palette,
   Rocket,
@@ -27,15 +25,10 @@ import {
 import { StyledCircularIcon } from "@/components/StyledCircularIcon";
 import { AnimatedSection, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { ComponentDetails, type DetailEntry } from "@/components/ComponentDetails";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import amitLogo from "@/assets/amit-logo.png";
+import toolbarContent from "@/assets/toolbar-content.png";
+import toolbarExercise from "@/assets/toolbar-exercise.png";
+import toolbarScaffolding from "@/assets/toolbar-scaffolding.png";
 
 const contentDetails: DetailEntry[] = [
   {
@@ -306,7 +299,7 @@ function LandingPage() {
               href="#stack"
               className="inline-flex items-center gap-2 bg-white/70 backdrop-blur border border-amit-navy/15 text-amit-navy px-6 py-3.5 rounded-full font-semibold hover:bg-white transition"
             >
-              <BookOpen className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
               המדריך הטכני
             </motion.a>
           </motion.div>
@@ -394,6 +387,21 @@ function LandingPage() {
         </div>
 
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 bg-gradient-to-l from-amit-lime/20 via-white to-amit-lime/10 rounded-2xl p-3 sm:p-5 border border-amit-lime/30 shadow-[var(--shadow-card)] overflow-x-auto"
+        >
+          <img
+            src={toolbarContent}
+            alt="סרגל רכיבי הצגת תוכן בבילדר"
+            className="mx-auto w-full max-w-3xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
+
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -427,6 +435,21 @@ function LandingPage() {
         </div>
 
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 bg-gradient-to-l from-amit-sky/20 via-white to-amit-sky/10 rounded-2xl p-3 sm:p-5 border border-amit-sky/30 shadow-[var(--shadow-card)] overflow-x-auto"
+        >
+          <img
+            src={toolbarExercise}
+            alt="סרגל רכיבי תרגול בבילדר"
+            className="mx-auto w-full max-w-4xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
+
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -442,6 +465,37 @@ function LandingPage() {
           <h3 className="text-xl sm:text-2xl font-bold text-center mb-5 text-amit-navy">סוגי תרגילים מתקדמים וכלים שיתופיים</h3>
           <ComponentDetails entries={exerciseDetails} accent="sky" />
         </div>
+      </AnimatedSection>
+
+      {/* Scaffolding Components */}
+      <AnimatedSection className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <motion.div whileHover={{ rotate: 8, scale: 1.08 }}>
+            <StyledCircularIcon driveId={driveIcons.hint} alt="פיגומים" color="navy" size="lg" />
+          </motion.div>
+          <div>
+            <div className="text-xs sm:text-sm font-bold text-amit-navy tracking-widest uppercase">חלק ג׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי פיגומים</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
+              רכיבים תומכי-למידה — רמזים, הקראה, כלי עזר, מסלולים והערות שעוטפים את חוויית התלמיד.
+            </p>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-amit-navy rounded-2xl p-3 sm:p-5 border border-amit-navy/30 shadow-[var(--shadow-card)] overflow-x-auto"
+        >
+          <img
+            src={toolbarScaffolding}
+            alt="סרגל רכיבי פיגומים בבילדר"
+            className="mx-auto w-full max-w-3xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
       </AnimatedSection>
 
       {/* Icon Library Showcase */}
@@ -535,129 +589,6 @@ function LandingPage() {
             <p className="mt-4 text-white/80 text-base sm:text-lg leading-relaxed">
               סקור את התיעוד המלא של הרכיבים, ה-Hooks וה-API. אם יש שאלות — צוות הפיתוח של אמית כאן בשבילך.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-amit-lime text-amit-navy px-7 py-3.5 rounded-full font-bold hover:bg-white transition"
-                  >
-                    <Github className="h-5 w-5" />
-                    למאגר הקוד
-                  </motion.button>
-                </DialogTrigger>
-                <DialogContent dir="rtl" className="max-w-lg">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl font-black text-amit-navy flex items-center gap-2">
-                      <Github className="h-6 w-6" /> מאגר הקוד
-                    </DialogTitle>
-                    <DialogDescription className="text-amit-navy/70 pt-2 text-right">
-                      גישה למאגר הקוד הפרטי של בילדר אמית.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 text-sm text-amit-navy/80 leading-relaxed">
-                    <div className="bg-amit-lime/10 border border-amit-lime/30 rounded-xl p-4">
-                      <div className="font-bold text-amit-olive mb-1">סטטוס: פרטי 🔒</div>
-                      <p>המאגר נמצא ב-Git פנימי של רשת אמית. גישה ניתנת למפתחים בלבד לאחר אישור צוות הטכנולוגיה.</p>
-                    </div>
-                    <div>
-                      <div className="font-bold text-amit-navy mb-2">איך מקבלים גישה?</div>
-                      <ol className="list-decimal pr-5 space-y-1.5">
-                        <li>פנייה לרכז הפיתוח של אמית דיגיטל</li>
-                        <li>חתימה על הסכם סודיות (NDA)</li>
-                        <li>קבלת הזמנה לארגון Git</li>
-                        <li>הגדרת SSH והתקנת התלויות לפי README</li>
-                      </ol>
-                    </div>
-                    <div>
-                      <div className="font-bold text-amit-navy mb-2">סטאק טכנולוגי</div>
-                      <div className="flex flex-wrap gap-2">
-                        {["React 19", "TypeScript", "TanStack Router", "Tailwind v4", "Supabase"].map((t) => (
-                          <span key={t} className="bg-white border border-amit-navy/15 rounded-full px-3 py-1 text-xs font-semibold">{t}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <a
-                      href="mailto:dev@amit.org.il?subject=בקשת גישה למאגר הקוד של הבילדר"
-                      className="block text-center bg-amit-navy text-white rounded-full py-2.5 font-bold hover:bg-amit-teal transition"
-                    >
-                      שלח בקשת גישה
-                    </a>
-                  </div>
-                </DialogContent>
-              </Dialog>
-
-              <Dialog>
-                <DialogTrigger asChild>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold hover:bg-white/20 transition"
-                  >
-                    <BookOpen className="h-5 w-5" />
-                    תיעוד API
-                  </motion.button>
-                </DialogTrigger>
-                <DialogContent dir="rtl" className="max-w-2xl max-h-[85vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl font-black text-amit-navy flex items-center gap-2">
-                      <BookOpen className="h-6 w-6" /> תיעוד API
-                    </DialogTitle>
-                    <DialogDescription className="text-amit-navy/70 pt-2 text-right">
-                      סקירה טכנית של ה-API לשימוש ברכיבי הבילדר.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-5 text-sm text-amit-navy/85 leading-relaxed">
-                    <div>
-                      <div className="font-bold text-amit-navy mb-2">דוגמה — שימוש ברכיב טקסט</div>
-                      <pre className="bg-amit-navy text-amit-lime p-4 rounded-xl overflow-x-auto text-xs leading-relaxed text-left" dir="ltr">
-{`import { TextBlock } from "@amit/builder";
-
-<TextBlock
-  content="ברוכים הבאים"
-  align="right"
-  rtl
-  a11yLabel="פסקת פתיחה"
-/>`}
-                      </pre>
-                    </div>
-
-                    <div>
-                      <div className="font-bold text-amit-navy mb-2">Endpoints עיקריים</div>
-                      <div className="space-y-2">
-                        {[
-                          { m: "GET", p: "/api/lessons/:id", d: "טעינת שיעור לפי מזהה" },
-                          { m: "POST", p: "/api/lessons", d: "יצירת שיעור חדש" },
-                          { m: "PUT", p: "/api/components/:id", d: "עדכון רכיב בשיעור" },
-                          { m: "GET", p: "/api/students/:id/progress", d: "התקדמות תלמיד" },
-                        ].map((e) => (
-                          <div key={e.p} className="flex flex-wrap items-center gap-3 bg-white border border-amit-navy/10 rounded-lg p-3">
-                            <span className={`text-xs font-black px-2 py-1 rounded ${e.m === "GET" ? "bg-amit-sky/20 text-amit-teal" : e.m === "POST" ? "bg-amit-lime/20 text-amit-olive" : "bg-amit-mint/30 text-amit-forest"}`}>{e.m}</span>
-                            <code className="text-xs font-mono text-amit-navy" dir="ltr">{e.p}</code>
-                            <span className="text-xs text-amit-navy/70">— {e.d}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="font-bold text-amit-navy mb-2">Hooks זמינים</div>
-                      <ul className="space-y-1.5 list-disc pr-5">
-                        <li><code className="bg-amit-lime/15 px-2 py-0.5 rounded text-xs" dir="ltr">useLesson(id)</code> — טעינת שיעור עם cache</li>
-                        <li><code className="bg-amit-lime/15 px-2 py-0.5 rounded text-xs" dir="ltr">useStudentProgress()</code> — מעקב התקדמות בזמן אמת</li>
-                        <li><code className="bg-amit-lime/15 px-2 py-0.5 rounded text-xs" dir="ltr">useA11yChecker()</code> — סקירת נגישות אוטומטית</li>
-                        <li><code className="bg-amit-lime/15 px-2 py-0.5 rounded text-xs" dir="ltr">useAIGenerate()</code> — יצירת תוכן בעזרת AI</li>
-                      </ul>
-                    </div>
-
-                    <div className="bg-amit-sky/10 border border-amit-sky/30 rounded-xl p-4 text-xs">
-                      💡 התיעוד המלא, כולל סכמות TypeScript ודוגמאות אינטראקטיביות, מתפרסם בקרוב בפורטל המפתחים של אמית.
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
           </div>
         </motion.div>
       </AnimatedSection>
