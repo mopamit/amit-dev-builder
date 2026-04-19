@@ -396,6 +396,11 @@ function LandingPage() {
             <ComponentCard key={c.title} {...c} />
           ))}
         </motion.div>
+
+        <div className="mt-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-5 text-amit-navy">העמקה — שאלות ותשובות לכל רכיב</h3>
+          <ComponentDetails entries={contentDetails} accent="lime" />
+        </div>
       </AnimatedSection>
 
       {/* Exercise Components */}
