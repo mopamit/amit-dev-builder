@@ -253,8 +253,8 @@ function LandingPage() {
           </p>
         </div>
 
-        <div className="bg-white/60 backdrop-blur rounded-3xl border border-amit-navy/10 p-8 md:p-10 shadow-[var(--shadow-card)]">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 place-items-center">
+        <div className="bg-white/60 backdrop-blur rounded-3xl border border-amit-navy/10 p-6 sm:p-8 md:p-10 shadow-[var(--shadow-card)]">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6 place-items-center">
             <IconLabel id={driveIcons.start} label="התחל" color="lime" fallback={Sparkles} />
             <IconLabel id={driveIcons.home} label="בית" color="navy" />
             <IconLabel id={driveIcons.menu} label="תפריט" color="teal" />
