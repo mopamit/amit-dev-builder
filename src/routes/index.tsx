@@ -17,8 +17,6 @@ import {
   ShieldCheck,
   Accessibility,
   ArrowLeft,
-  Github,
-  BookOpen,
   Lightbulb,
   Palette,
   Rocket,
@@ -27,15 +25,10 @@ import {
 import { StyledCircularIcon } from "@/components/StyledCircularIcon";
 import { AnimatedSection, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { ComponentDetails, type DetailEntry } from "@/components/ComponentDetails";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import amitLogo from "@/assets/amit-logo.png";
+import toolbarContent from "@/assets/toolbar-content.png";
+import toolbarExercise from "@/assets/toolbar-exercise.png";
+import toolbarScaffolding from "@/assets/toolbar-scaffolding.png";
 
 const contentDetails: DetailEntry[] = [
   {
