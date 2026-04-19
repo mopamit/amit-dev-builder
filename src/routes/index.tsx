@@ -467,6 +467,37 @@ function LandingPage() {
         </div>
       </AnimatedSection>
 
+      {/* Scaffolding Components */}
+      <AnimatedSection className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-10 gap-4">
+          <motion.div whileHover={{ rotate: 8, scale: 1.08 }}>
+            <StyledCircularIcon driveId={driveIcons.hint} alt="פיגומים" color="navy" size="lg" />
+          </motion.div>
+          <div>
+            <div className="text-xs sm:text-sm font-bold text-amit-navy tracking-widest uppercase">חלק ג׳</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי פיגומים</h2>
+            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
+              רכיבים תומכי-למידה — רמזים, הקראה, כלי עזר, מסלולים והערות שעוטפים את חוויית התלמיד.
+            </p>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-amit-navy rounded-2xl p-3 sm:p-5 border border-amit-navy/30 shadow-[var(--shadow-card)] overflow-x-auto"
+        >
+          <img
+            src={toolbarScaffolding}
+            alt="סרגל רכיבי פיגומים בבילדר"
+            className="mx-auto w-full max-w-3xl h-auto"
+            loading="lazy"
+          />
+        </motion.div>
+      </AnimatedSection>
+
       {/* Icon Library Showcase */}
       <AnimatedSection id="icons" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
         <div className="text-center mb-12">
