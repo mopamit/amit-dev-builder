@@ -429,6 +429,11 @@ function LandingPage() {
             <ComponentCard key={c.title} {...c} />
           ))}
         </motion.div>
+
+        <div className="mt-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-5 text-amit-navy">סוגי תרגילים מתקדמים וכלים שיתופיים</h3>
+          <ComponentDetails entries={exerciseDetails} accent="sky" />
+        </div>
       </AnimatedSection>
 
       {/* Icon Library Showcase */}
