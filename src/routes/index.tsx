@@ -383,6 +383,7 @@ function LandingPage() {
             <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
               רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות.
             </p>
+          </div>
         </div>
 
         <motion.div
@@ -399,6 +400,15 @@ function LandingPage() {
             loading="lazy"
           />
         </motion.div>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          {contentComponents.map((c) => (
             <ComponentCard key={c.title} {...c} />
           ))}
         </motion.div>
