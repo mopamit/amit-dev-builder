@@ -204,7 +204,7 @@ function ToolsPage() {
           transition={{ delay: 0.4 }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          href="https://bit.ly/DigitalAmit"
+          href="https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-7 inline-flex items-center gap-3 bg-amit-navy text-white ps-5 pe-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
