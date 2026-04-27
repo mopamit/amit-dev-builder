@@ -206,36 +206,7 @@ function LandingPage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   return (
-    <div dir="rtl" className="min-h-screen relative overflow-x-hidden">
-      {/* Decorative blobs + grid */}
-      <div className="pointer-events-none absolute inset-0 amit-grid-bg" />
-      <div className="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-amit-lime/25 blur-3xl animate-float-slow" />
-      <div className="pointer-events-none absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-amit-sky/25 blur-3xl animate-float-slower" />
-      <div className="pointer-events-none absolute top-2/3 left-1/4 h-72 w-72 rounded-full bg-amit-mint/20 blur-3xl animate-float-slow" />
-
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 px-4 sm:px-6 md:px-12 pt-6 pb-4 flex items-center justify-between gap-4 flex-wrap-reverse"
-      >
-        <nav className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-amit-navy/70">
-          <a href="#workflow" className="hover:text-amit-navy transition story-link">תהליך</a>
-          <span className="opacity-30">·</span>
-          <a href="#components" className="hover:text-amit-navy transition story-link">רכיבים</a>
-          <span className="opacity-30">·</span>
-          <a href="#icons" className="hover:text-amit-navy transition story-link">אייקונים</a>
-          <span className="opacity-30">·</span>
-          <a href="#stack" className="hover:text-amit-navy transition story-link">מפתחים</a>
-        </nav>
-        <motion.img
-          whileHover={{ rotate: -3, scale: 1.05 }}
-          src={amitLogo}
-          alt="לוגו רשת אמית"
-          className="h-10 sm:h-12 md:h-16 w-auto object-contain"
-        />
-      </motion.header>
+    <PageShell>
 
       {/* Hero */}
       <section ref={heroRef} className="relative z-10 px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 pb-16 sm:pb-20 max-w-6xl mx-auto text-center">
@@ -593,10 +564,7 @@ function LandingPage() {
         </motion.div>
       </AnimatedSection>
 
-      <footer className="relative z-10 px-6 md:px-12 py-10 text-center text-sm text-amit-navy/60 font-semibold">
-        © רשת אמית · חינוך שרואה רחוק · בילדר דיגיטלי מונגש
-      </footer>
-    </div>
+    </PageShell>
   );
 }
 
