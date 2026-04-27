@@ -16,8 +16,16 @@ export const Route = createFileRoute("/guidelines")({
   component: GuidelinesPage,
 });
 
+const VISUAL_LANGUAGE_DOC = "https://docs.google.com/document/d/1-PHnU9dqr5MG2gSRJuZFx_ERjrO6qV_p3TsZmdit0rg/edit?usp=sharing";
+
 const planned = [
-  { icon: Palette, title: "שפה ויזואלית", desc: "צבעי מותג, טיפוגרפיה, גריד ומרווחים — איך לשמור על אחידות בין הרכיבים." },
+  {
+    icon: Palette,
+    title: "שפה ויזואלית",
+    desc: "צבעי מותג, טיפוגרפיה, גריד ומרווחים — איך לשמור על אחידות בין הרכיבים.",
+    href: VISUAL_LANGUAGE_DOC,
+    cta: "פתיחת המסמך",
+  },
   { icon: Code2, title: "תקני קוד", desc: "מבנה רכיבים, קונבנציות שמות, ניהול state ועקרונות Composition." },
   { icon: Accessibility, title: "נגישות", desc: "WCAG 2.1 AA: ניגודיות, ניווט מקלדת, ARIA וקוראי מסך." },
 ];
