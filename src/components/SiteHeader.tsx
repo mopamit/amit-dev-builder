@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Bot } from "lucide-react";
 import amitLogo from "@/assets/amit-logo.png";
 
+const BOT_URL = "https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt";
+
 const tabs = [
   { to: "/" as const, label: "הבילדר" },
   { to: "/tools" as const, label: "כלים דיגיטליים" },
@@ -30,8 +32,8 @@ export function SiteHeader() {
           </Link>
         ))}
         <a
-          href="https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt"
-          target="_blank"
+          href={BOT_URL}
+          target="_top"
           rel="noopener noreferrer"
           className="ms-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amit-lime/30 border border-amit-lime/50 text-amit-olive hover:bg-amit-lime/50 transition-colors"
         >
@@ -54,8 +56,8 @@ export function SiteHeader() {
 export function FloatingBotCTA() {
   return (
     <motion.a
-      href="https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt"
-      target="_blank"
+      href={BOT_URL}
+      target="_top"
       rel="noopener noreferrer"
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
