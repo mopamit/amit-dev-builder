@@ -30,7 +30,7 @@ export function SiteHeader() {
           </Link>
         ))}
         <a
-          href="https://bit.ly/DigitalAmit"
+          href="https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt"
           target="_blank"
           rel="noopener noreferrer"
           className="ms-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amit-lime/30 border border-amit-lime/50 text-amit-olive hover:bg-amit-lime/50 transition-colors"
@@ -54,7 +54,7 @@ export function SiteHeader() {
 export function FloatingBotCTA() {
   return (
     <motion.a
-      href="https://bit.ly/DigitalAmit"
+      href="https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, scale: 0.5 }}
