@@ -2,16 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import {
-  FileText,
-  Image as ImageIcon,
-  Video,
-  Code2,
-  Volume2,
-  StickyNote,
-  PenLine,
-  Type,
-  MoveHorizontal,
-  ListChecks,
   Layers,
   Sparkles,
   ShieldCheck,
@@ -29,6 +19,16 @@ import { PageShell } from "@/components/PageShell";
 import toolbarContent from "@/assets/toolbar-content.png";
 import toolbarExercise from "@/assets/toolbar-exercise.png";
 import toolbarScaffolding from "@/assets/toolbar-scaffolding.png";
+import contentTextIcon from "@/assets/builder-icons/content-text.png";
+import contentImageIcon from "@/assets/builder-icons/content-image.png";
+import contentVideoIcon from "@/assets/builder-icons/content-video.png";
+import contentEmbedIcon from "@/assets/builder-icons/content-embed.png";
+import contentAudioIcon from "@/assets/builder-icons/content-audio.png";
+import contentNoteIcon from "@/assets/builder-icons/content-note.png";
+import exerciseParagraphIcon from "@/assets/builder-icons/exercise-paragraph.png";
+import exerciseShortAnswerIcon from "@/assets/builder-icons/exercise-short-answer.png";
+import exerciseChoiceIcon from "@/assets/builder-icons/exercise-choice.png";
+import exerciseDragAnswerIcon from "@/assets/builder-icons/exercise-drag-answer.png";
 
 const contentDetails: DetailEntry[] = [
   {
@@ -152,19 +152,19 @@ export const Route = createFileRoute("/")({
 });
 
 const contentComponents = [
-  { icon: FileText, title: "טקסט", desc: "הזנת טקסטים ופסקאות עם קיצורי עיצוב מלאים (Bold, Italic, יישור, רווחים). מומלץ עד שתיים-שלוש שורות לפסקה.", color: "navy" as const },
-  { icon: ImageIcon, title: "תמונה", desc: "העלאה מהמחשב/דרייב, בחירה ממאגר או יצירה ב-AI. עדיף להטמיע תמונה בתוך רכיב טקסט עבור הקשר דידקטי.", color: "sky" as const },
-  { icon: Video, title: "סרטון", desc: "העלאת MP4 או הטמעה מ-YouTube ו-Vimeo. תמיכה בשאלות קופצות במהלך הצפייה. כתוביות הן חובה.", color: "teal" as const },
-  { icon: Code2, title: "הטמעה", desc: "הטמעת תוכן מקוון מאתרים חיצוניים דרך קישור ייעודי. שימו לב — למידה במוטמעים אינה נשמרת במערכת.", color: "olive" as const },
-  { icon: Volume2, title: "שמע", desc: "העלאת קובץ אודיו: הסבר, שיר, פודקאסט. תומך בהנגשת טקסט ולמידה רב-חושית. מומלץ לצרף תמליל.", color: "mint" as const },
-  { icon: StickyNote, title: "הערה", desc: "הוספת הנחיות והבהרות בצבעים שונים, מחוץ לרצף הלמידה. שימוש עקבי בצבע מסייע לזיהוי אופי ההערה.", color: "lime" as const },
+  { imageSrc: contentTextIcon, title: "טקסט", desc: "הזנת טקסטים ופסקאות עם קיצורי עיצוב מלאים (Bold, Italic, יישור, רווחים). מומלץ עד שתיים-שלוש שורות לפסקה.", color: "navy" as const },
+  { imageSrc: contentImageIcon, title: "תמונה", desc: "העלאה מהמחשב/דרייב, בחירה ממאגר או יצירה ב-AI. עדיף להטמיע תמונה בתוך רכיב טקסט עבור הקשר דידקטי.", color: "sky" as const },
+  { imageSrc: contentVideoIcon, title: "סרטון", desc: "העלאת MP4 או הטמעה מ-YouTube ו-Vimeo. תמיכה בשאלות קופצות במהלך הצפייה. כתוביות הן חובה.", color: "teal" as const },
+  { imageSrc: contentEmbedIcon, title: "הטמעה", desc: "הטמעת תוכן מקוון מאתרים חיצוניים דרך קישור ייעודי. שימו לב — למידה במוטמעים אינה נשמרת במערכת.", color: "olive" as const },
+  { imageSrc: contentAudioIcon, title: "שמע", desc: "העלאת קובץ אודיו: הסבר, שיר, פודקאסט. תומך בהנגשת טקסט ולמידה רב-חושית. מומלץ לצרף תמליל.", color: "mint" as const },
+  { imageSrc: contentNoteIcon, title: "הערה", desc: "הוספת הנחיות והבהרות בצבעים שונים, מחוץ לרצף הלמידה. שימוש עקבי בצבע מסייע לזיהוי אופי ההערה.", color: "lime" as const },
 ];
 
 const exerciseComponents = [
-  { icon: PenLine, title: "פסקה", desc: "תרגיל פתוח עם תיבת תשובה. תומך בפסקה ריקה, השלמת טקסט קיים או משיכת תשובה לטבלה.", color: "teal" as const },
-  { icon: Type, title: "תשובה קצרה", desc: "שאלה אחת או רצף שאלות קצרות. אפשרות להגדיר תשובה מדויקת לבדיקה אוטומטית (מילה, שורש וכו׳).", color: "sky" as const },
-  { icon: MoveHorizontal, title: "משיכת תשובה", desc: "גרירת מילים או ביטויים למיקום הנכון בטקסט. תומך בלמידה אקטיבית ובארגון מידע.", color: "mint" as const },
-  { icon: ListChecks, title: "בחירה מרובה", desc: "שאלות אמריקאיות עם תשובה אחת או מספר תשובות נכונות. מתאים לבדיקת ידע ולתרגול ממוקד.", color: "olive" as const },
+  { imageSrc: exerciseParagraphIcon, title: "פסקה", desc: "תרגיל פתוח עם תיבת תשובה. תומך בפסקה ריקה, השלמת טקסט קיים או משיכת תשובה לטבלה.", color: "teal" as const },
+  { imageSrc: exerciseShortAnswerIcon, title: "תשובה קצרה", desc: "שאלה אחת או רצף שאלות קצרות. אפשרות להגדיר תשובה מדויקת לבדיקה אוטומטית (מילה, שורש וכו׳).", color: "sky" as const },
+  { imageSrc: exerciseDragAnswerIcon, title: "משיכת תשובה", desc: "גרירת מילים או ביטויים למיקום הנכון בטקסט. תומך בלמידה אקטיבית ובארגון מידע.", color: "mint" as const },
+  { imageSrc: exerciseChoiceIcon, title: "בחירה מרובה", desc: "שאלות אמריקאיות עם תשובה אחת או מספר תשובות נכונות. מתאים לבדיקת ידע ולתרגול ממוקד.", color: "olive" as const },
 ];
 
 const workflow = [
@@ -569,12 +569,12 @@ function LandingPage() {
 }
 
 function ComponentCard({
-  icon: Icon,
+  imageSrc,
   title,
   desc,
   color,
 }: {
-  icon: typeof FileText;
+  imageSrc: string;
   title: string;
   desc: string;
   color: "navy" | "sky" | "teal" | "mint" | "olive" | "lime" | "forest";
@@ -598,9 +598,9 @@ function ComponentCard({
       <motion.div
         whileHover={{ rotate: [0, -8, 8, 0] }}
         transition={{ duration: 0.5 }}
-        className={`${bgMap[color]} h-14 w-14 rounded-2xl flex items-center justify-center mb-5 ring-4 ring-white/40`}
+        className="h-18 w-18 sm:h-20 sm:w-20 rounded-3xl flex items-center justify-center mb-5 bg-white border border-amit-navy/8 shadow-[var(--shadow-card)] p-2.5"
       >
-        <Icon className="h-7 w-7 text-white" strokeWidth={2.2} />
+        <img src={imageSrc} alt={title} className="h-full w-full object-contain" loading="lazy" />
       </motion.div>
       <h3 className="text-xl font-bold mb-2 relative">{title}</h3>
       <p className="text-amit-navy/70 text-sm leading-relaxed relative">{desc}</p>
