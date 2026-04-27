@@ -569,12 +569,12 @@ function LandingPage() {
 }
 
 function ComponentCard({
-  icon: Icon,
+  imageSrc,
   title,
   desc,
   color,
 }: {
-  icon: typeof FileText;
+  imageSrc: string;
   title: string;
   desc: string;
   color: "navy" | "sky" | "teal" | "mint" | "olive" | "lime" | "forest";
@@ -598,9 +598,9 @@ function ComponentCard({
       <motion.div
         whileHover={{ rotate: [0, -8, 8, 0] }}
         transition={{ duration: 0.5 }}
-        className={`${bgMap[color]} h-14 w-14 rounded-2xl flex items-center justify-center mb-5 ring-4 ring-white/40`}
+        className="h-18 w-18 sm:h-20 sm:w-20 rounded-3xl flex items-center justify-center mb-5 bg-white border border-amit-navy/8 shadow-[var(--shadow-card)] p-2.5"
       >
-        <Icon className="h-7 w-7 text-white" strokeWidth={2.2} />
+        <img src={imageSrc} alt={title} className="h-full w-full object-contain" loading="lazy" />
       </motion.div>
       <h3 className="text-xl font-bold mb-2 relative">{title}</h3>
       <p className="text-amit-navy/70 text-sm leading-relaxed relative">{desc}</p>
