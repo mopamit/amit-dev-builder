@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Bot } from "lucide-react";
 import amitLogo from "@/assets/amit-logo.png";
-import { BOT_URL, openBotUrl } from "@/lib/bot";
+import { BOT_URL } from "@/lib/bot";
 
 const tabs = [
   { to: "/" as const, label: "הבילדר" },
@@ -34,10 +34,6 @@ export function SiteHeader() {
           href={BOT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={(event) => {
-            event.preventDefault();
-            openBotUrl();
-          }}
           className="ms-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amit-lime/30 border border-amit-lime/50 text-amit-olive hover:bg-amit-lime/50 transition-colors"
         >
           <Bot className="h-3.5 w-3.5" />
@@ -62,10 +58,6 @@ export function FloatingBotCTA() {
       href={BOT_URL}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={(event) => {
-        event.preventDefault();
-        openBotUrl();
-      }}
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.8, type: "spring", stiffness: 200, damping: 18 }}
