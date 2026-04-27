@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { AnimatedSection, staggerContainer, staggerItem } from "@/components/AnimatedSection";
+import { BOT_URL, openBotUrl } from "@/lib/bot";
 
 export const Route = createFileRoute("/tools")({
   head: () => ({
@@ -139,8 +140,6 @@ const colorMap: Record<ColorKey, { bg: string; text: string; ring: string; chip:
   navy: { bg: "bg-amit-navy", text: "text-amit-navy", ring: "ring-amit-navy/40", chip: "bg-amit-navy/10 border-amit-navy/30" },
 };
 
-const BOT_URL = "https://chatgpt.com/g/g-696cffa9fbe881919c1dad635a50d6a0-klym-dygytlyym-mv-p-myt";
-
 function ToolsPage() {
   const [query, setQuery] = useState("");
   const [activeCat, setActiveCat] = useState<string>("all");
@@ -207,8 +206,12 @@ function ToolsPage() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           href={BOT_URL}
-          target="_top"
+          target="_blank"
           rel="noopener noreferrer"
+          onClick={(event) => {
+            event.preventDefault();
+            openBotUrl();
+          }}
           className="mt-7 inline-flex items-center gap-3 bg-amit-navy text-white ps-5 pe-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
         >
           <span className="bg-amit-lime/30 rounded-full p-1.5">
