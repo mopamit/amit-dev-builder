@@ -90,7 +90,18 @@ function GuidelinesPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">{p.title}</h3>
                 <p className="text-amit-navy/70 text-sm leading-relaxed">{p.desc}</p>
-                <div className="mt-4 text-xs font-bold text-amit-navy/40 uppercase tracking-wider">בקרוב</div>
+                {p.href ? (
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-amit-teal hover:text-amit-forest transition-colors"
+                  >
+                    {p.cta} ↗
+                  </a>
+                ) : (
+                  <div className="mt-4 text-xs font-bold text-amit-navy/40 uppercase tracking-wider">בקרוב</div>
+                )}
               </motion.div>
             );
           })}
