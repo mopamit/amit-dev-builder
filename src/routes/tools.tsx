@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { AnimatedSection, staggerContainer, staggerItem } from "@/components/AnimatedSection";
-import { BOT_URL, openBotUrl } from "@/lib/bot";
+import { BOT_URL } from "@/lib/bot";
 
 export const Route = createFileRoute("/tools")({
   head: () => ({
@@ -208,10 +208,6 @@ function ToolsPage() {
           href={BOT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={(event) => {
-            event.preventDefault();
-            openBotUrl();
-          }}
           className="mt-7 inline-flex items-center gap-3 bg-amit-navy text-white ps-5 pe-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
         >
           <span className="bg-amit-lime/30 rounded-full p-1.5">
