@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as OutputsRouteImport } from './routes/outputs'
 import { Route as GuidelinesRouteImport } from './routes/guidelines'
+import { Route as BotRouteImport } from './routes/bot'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ToolsRoute = ToolsRouteImport.update({
@@ -29,6 +30,11 @@ const GuidelinesRoute = GuidelinesRouteImport.update({
   path: '/guidelines',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BotRoute = BotRouteImport.update({
+  id: '/bot',
+  path: '/bot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bot': typeof BotRoute
   '/guidelines': typeof GuidelinesRoute
   '/outputs': typeof OutputsRoute
   '/tools': typeof ToolsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bot': typeof BotRoute
   '/guidelines': typeof GuidelinesRoute
   '/outputs': typeof OutputsRoute
   '/tools': typeof ToolsRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bot': typeof BotRoute
   '/guidelines': typeof GuidelinesRoute
   '/outputs': typeof OutputsRoute
   '/tools': typeof ToolsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/guidelines' | '/outputs' | '/tools'
+  fullPaths: '/' | '/bot' | '/guidelines' | '/outputs' | '/tools'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/guidelines' | '/outputs' | '/tools'
-  id: '__root__' | '/' | '/guidelines' | '/outputs' | '/tools'
+  to: '/' | '/bot' | '/guidelines' | '/outputs' | '/tools'
+  id: '__root__' | '/' | '/bot' | '/guidelines' | '/outputs' | '/tools'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BotRoute: typeof BotRoute
   GuidelinesRoute: typeof GuidelinesRoute
   OutputsRoute: typeof OutputsRoute
   ToolsRoute: typeof ToolsRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidelinesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bot': {
+      id: '/bot'
+      path: '/bot'
+      fullPath: '/bot'
+      preLoaderRoute: typeof BotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BotRoute: BotRoute,
   GuidelinesRoute: GuidelinesRoute,
   OutputsRoute: OutputsRoute,
   ToolsRoute: ToolsRoute,
