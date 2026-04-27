@@ -2,23 +2,34 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import {
-  Layers,
   Sparkles,
-  ShieldCheck,
-  Accessibility,
   ArrowLeft,
+  Highlighter,
   Lightbulb,
-  Palette,
-  Rocket,
-  Users,
+  Volume2,
+  LifeBuoy,
+  GitBranch,
+  Route as RouteIcon,
+  StickyNote,
+  CheckSquare,
+  ListChecks,
+  SlidersHorizontal,
+  UploadCloud,
+  Mic,
+  PenLine,
+  TextCursorInput,
+  Shuffle,
+  Layers,
+  ArrowDownUp,
+  Gamepad2,
+  Users as UsersIcon,
+  BarChart3,
+  Cloud,
+  History,
 } from "lucide-react";
-import { StyledCircularIcon } from "@/components/StyledCircularIcon";
 import { AnimatedSection, staggerContainer, staggerItem } from "@/components/AnimatedSection";
-import { ComponentDetails, type DetailEntry } from "@/components/ComponentDetails";
+import { ExpandableComponentCard, type ExpandableComponent } from "@/components/ExpandableComponentCard";
 import { PageShell } from "@/components/PageShell";
-import toolbarContent from "@/assets/toolbar-content.png";
-import toolbarExercise from "@/assets/toolbar-exercise.png";
-import toolbarScaffolding from "@/assets/toolbar-scaffolding.png";
 import contentTextIcon from "@/assets/builder-icons/content-text.png";
 import contentImageIcon from "@/assets/builder-icons/content-image.png";
 import contentVideoIcon from "@/assets/builder-icons/content-video.png";
@@ -30,174 +41,475 @@ import exerciseShortAnswerIcon from "@/assets/builder-icons/exercise-short-answe
 import exerciseChoiceIcon from "@/assets/builder-icons/exercise-choice.png";
 import exerciseDragAnswerIcon from "@/assets/builder-icons/exercise-drag-answer.png";
 
-const contentDetails: DetailEntry[] = [
-  {
-    title: "טקסט — קיצורי עיצוב והנחיות פדגוגיות",
-    questions: [
-      "האם הטקסטים שנבחרו תואמים את רמת היכולת של התלמידים?",
-      "האם מדובר בתוכן חדש שדורש עיצוב מרווח להפחתת עומס קוגניטיבי?",
-      "האם מומלץ לשלב שאלת טרום-קריאה לעורר סקרנות?",
-    ],
-    tips: [
-      "קיצורי עיצוב: Ctrl+B (הדגשה), Ctrl+I (נטוי), Ctrl+U (קו תחתון)",
-      "יישור: Ctrl+E מרכז, Ctrl+R ימין, Ctrl+L שמאל, Ctrl+J ישר לשני הצדדים",
-      "להקפיד על תצוגה שונה של כותרת ומושגים חשובים",
-      "לא לכתוב יותר משתי פסקאות ברצף",
-    ],
-  },
-  {
-    title: "תמונה — שיקולים דידקטיים",
-    questions: [
-      "האם לתמונה ערך דידקטי המקדם הבנה, או שמא היא מגבירה עומס קוגניטיבי?",
-      "האם התמונה משמשת כפיגום למידה?",
-      "האם האיור מסייע בהמחשת מושגים מופשטים או מצמצם פרשנות?",
-    ],
-    tips: [
-      "מומלץ להטמיע תמונות בתוך רכיב טקסט להקשר דידקטי",
-      "ניתן להעלות מהמחשב, מהדרייב, מהמאגר או ליצור ב-AI",
-      "להוסיף Alt Text מתאר לכל תמונה לצרכי נגישות",
-    ],
-  },
-  {
-    title: "סרטון — הטמעה והנגשה",
-    questions: [
-      "האם אורך הסרטון מתאים לטווח הקשב של התלמיד?",
-      "האם נדרשות שאלות עצירה במהלך הצפייה לבדיקת הבנה?",
-    ],
-    tips: [
-      "תמיכה בהעלאת MP4 או הטמעה מ-YouTube ו-Vimeo",
-      "כתוביות הן חובה — ניתן להפיק אוטומטית",
-      "לשלב שאלות פופ-אפ במהלך הסרטון לעידוד מעורבות",
-    ],
-  },
-  {
-    title: "שמע והערה",
-    questions: [
-      "האם השמע משמש כהנגשה (הקראה) או כתוכן עצמאי (פודקאסט)?",
-      "האם ההערה ברורה ולא נבלעת ברצף הלמידה?",
-    ],
-    tips: [
-      "לצרף תמליל לקובצי שמע לטובת תלמידים שמתקשים בשמיעה",
-      "להשתמש בצבעי הערה עקביים לפי סוג ההנחיה",
-    ],
-  },
-];
-
-const exerciseDetails: DetailEntry[] = [
-  {
-    title: "פסקה ותשובה קצרה",
-    questions: [
-      "האם השאלה פתוחה מספיק לעודד חשיבה, או ממוקדת לבדיקת ידע?",
-      "האם נדרשת בדיקה אוטומטית או משוב מורה?",
-    ],
-    tips: [
-      "פסקה ריקה לתשובה חופשית, או השלמה בתוך טקסט קיים",
-      "תשובה קצרה תומכת בבדיקה אוטומטית של מילה, שורש או ביטוי",
-    ],
-  },
-  {
-    title: "התאמה ומיון",
-    questions: [
-      "האם הקטגוריות מובחנות בצורה ברורה?",
-      "האם מספר הפריטים אינו יוצר עומס ויזואלי?",
-    ],
-    tips: [
-      "התאמה: גרירת זוגות מתאימים בין שתי עמודות",
-      "מיון: חלוקת פריטים לקבוצות לפי מאפיין משותף",
-    ],
-  },
-  {
-    title: "כלים שיתופיים — לוח, סקר, ענן מילים",
-    questions: [
-      "האם הכלי מקדם דיון אמיתי בכיתה או רק תיעוד?",
-      "האם הוגדרו כללי שיח ברורים לפני השימוש?",
-    ],
-    tips: [
-      "לוח שיתופי לרעיונות חופשיים וסיעור מוחות",
-      "סקר לזיהוי דעות וטעויות נפוצות",
-      "ענן מילים להמחשה ויזואלית של תפיסות הכיתה",
-    ],
-  },
-  {
-    title: "הקלטה, לוח ציור והעלאת קובץ",
-    questions: [
-      "האם הפורמט שנבחר תואם את סוג ההבעה הנדרש מהתלמיד?",
-      "האם יש כלי תמיכה לתלמידים שמתקשים בהקלטה/ציור?",
-    ],
-    tips: [
-      "הקלטת קול לתרגול הבעה בעל-פה ושפה זרה",
-      "לוח ציור לפתרון בעיות מתמטיות וסקיצות",
-      "העלאת קובץ לעבודות מורחבות וצירוף מסמכים",
-    ],
-  },
-];
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Builder אמית — סביבת בנייה דיגיטלית מונגשת למפתחים" },
+      { title: "Builder אמית — סביבת בנייה דיגיטלית מונגשת" },
       {
         name: "description",
         content:
-          "תיעוד טכני ופדגוגי לבילדר של רשת אמית — סביבת בנייה דיגיטלית מונגשת ליצירת שיעורים אינטראקטיביים. מדריך רכיבים למפתחים.",
+          "מדריך הרכיבים של הבילדר הדיגיטלי המונגש של אמית — רכיבי תוכן, תרגול ופיגומים. לחיצה על כל רכיב פותחת פירוט שאלות והמלצות.",
       },
-      { property: "og:title", content: "Builder אמית — סביבת בנייה מונגשת" },
+      { property: "og:title", content: "Builder אמית — מדריך רכיבים" },
       {
         property: "og:description",
-        content: "מדריך רכיבים ותיעוד למפתחים של הבילדר הדיגיטלי המונגש של רשת אמית.",
+        content: "רכיבי תוכן, תרגול ופיגומים בבילדר של אמית, עם שאלות למחשבה והמלצות פדגוגיות.",
       },
     ],
   }),
   component: LandingPage,
 });
 
-const contentComponents = [
-  { imageSrc: contentTextIcon, title: "טקסט", desc: "הזנת טקסטים ופסקאות עם קיצורי עיצוב מלאים (Bold, Italic, יישור, רווחים). מומלץ עד שתיים-שלוש שורות לפסקה.", color: "navy" as const },
-  { imageSrc: contentImageIcon, title: "תמונה", desc: "העלאה מהמחשב/דרייב, בחירה ממאגר או יצירה ב-AI. עדיף להטמיע תמונה בתוך רכיב טקסט עבור הקשר דידקטי.", color: "sky" as const },
-  { imageSrc: contentVideoIcon, title: "סרטון", desc: "העלאת MP4 או הטמעה מ-YouTube ו-Vimeo. תמיכה בשאלות קופצות במהלך הצפייה. כתוביות הן חובה.", color: "teal" as const },
-  { imageSrc: contentEmbedIcon, title: "הטמעה", desc: "הטמעת תוכן מקוון מאתרים חיצוניים דרך קישור ייעודי. שימו לב — למידה במוטמעים אינה נשמרת במערכת.", color: "olive" as const },
-  { imageSrc: contentAudioIcon, title: "שמע", desc: "העלאת קובץ אודיו: הסבר, שיר, פודקאסט. תומך בהנגשת טקסט ולמידה רב-חושית. מומלץ לצרף תמליל.", color: "mint" as const },
-  { imageSrc: contentNoteIcon, title: "הערה", desc: "הוספת הנחיות והבהרות בצבעים שונים, מחוץ לרצף הלמידה. שימוש עקבי בצבע מסייע לזיהוי אופי ההערה.", color: "lime" as const },
+const contentComponents: ExpandableComponent[] = [
+  {
+    imageSrc: contentTextIcon,
+    title: "טקסט",
+    desc: "הזנת טקסטים ופסקאות עם קיצורי עיצוב מלאים. מומלץ עד שתיים-שלוש שורות לפסקה.",
+    color: "navy",
+    questions: [
+      "האם קיימת דרך להציג את הטקסט באופן אינטראקטיבי וחווייתי, כדי לעורר מוטיבציה ולעודד השתתפות?",
+      "האם מדובר בתוכן חדש שדורש עיצוב מרווח ומדורג להפחתת עומס קוגניטיבי?",
+      "האם מדובר בחזרה על חומר קיים שניתן לעצב באופן תמציתי ומרכז?",
+      "האם מומלץ לשלב שאלת טרום-קריאה לעורר את סקרנות התלמיד?",
+      "האם הטקסטים שנבחרו תואמים את רמת היכולת של התלמידים?",
+    ],
+    tips: [
+      "להציג בצורה ברורה ציטוטים של מקורות שונים ולציין את המקור המדויק.",
+      "לא לכתוב יותר משתי פסקאות ברצף.",
+      "להקפיד על תצוגה שונה לכותרת ולמושגים חשובים בתוך הטקסט.",
+      "קיצורי עיצוב: Ctrl+B (הדגשה), Ctrl+I (נטוי), Ctrl+U (קו תחתון).",
+      "יישור פסקה: Ctrl+E מרכז, Ctrl+R ימין, Ctrl+L שמאל, Ctrl+J ישר לשני הצדדים.",
+    ],
+  },
+  {
+    imageSrc: contentImageIcon,
+    title: "תמונה",
+    desc: "בחירה ממאגר, העלאה מהמחשב/דרייב, או יצירה ב-AI. עדיף להטמיע את התמונה בתוך רכיב טקסט.",
+    color: "sky",
+    questions: [
+      "האם התמונה משמשת כפיגום למידה?",
+      "האם האיור/תמונה מסייעים בהמחשת מושגים מופשטים, או שעלולים לצמצם את מרחב הפרשנות?",
+      "האם לתמונה ערך דידקטי מקדם הבנה, או שמדובר באלמנט חזותי שעלול להגביר עומס קוגניטיבי?",
+    ],
+    tips: [
+      "ברוב המקרים נעדיף להטמיע תמונה בתוך רכיב טקסט.",
+      "להוסיף Alt Text מתאר לכל תמונה לצרכי נגישות.",
+    ],
+  },
+  {
+    imageSrc: contentVideoIcon,
+    title: "סרטון",
+    desc: "העלאת MP4 או הטמעה מ-YouTube ו-Vimeo. אפשרות לשאלות שקופצות במהלך הצפייה.",
+    color: "teal",
+    questions: [
+      "האם תרצו לצרף שאלות שקופצות בנקודות זמן ייעודיות לעידוד צפייה פעילה?",
+      "באילו מצבים תרצו לצרף משימת צפייה מקדימה?",
+      "מהו תפקיד הסרטון בשיעור? הקניה של חומר חדש, ביסוס ידע קודם, או יצירת מוטיבציה ורלוונטיות?",
+    ],
+    tips: [
+      "לתחום את הסרטון כך שיהיה קולע ורלוונטי.",
+      "מומלץ לכתוב בכותרת הנחיה לצפייה בסרטון.",
+      "חובה לצרף כתוביות לכל סרטון.",
+    ],
+  },
+  {
+    imageSrc: contentEmbedIcon,
+    title: "הטמעה",
+    desc: "הטמעת תוכן מקוון מאתרים אחרים דרך קישור ייעודי להטמעה.",
+    color: "olive",
+    questions: [
+      "מהו הערך המוסף של הטמעת התוכן החיצוני בסביבת הלמידה? תרגול או הקניית ידע?",
+      "האם התוכן המוטמע משתלב היטב במסגרת הלמידה — פדגוגית וויזואלית?",
+    ],
+    tips: [
+      "לצרף הנחיה ברורה מה התלמיד נדרש לבצע בתוכן.",
+      "תכנים דיגיטליים עשירים מציבים אתגר נוסף — התלמיד נאלץ קודם להבין את הכלי.",
+      "שימו לב — הלמידה שמתרחשת בתכנים מוטמעים אינה נשמרת על ידי המערכת.",
+    ],
+  },
+  {
+    imageSrc: contentAudioIcon,
+    title: "שמע",
+    desc: "העלאת קובץ אודיו מהמחשב — הסבר, שיר, פודקאסט וכד׳.",
+    color: "mint",
+    questions: [
+      "לאילו תלמידים זה מתאים?",
+      "האם הטקסט המושמע מתאים להיות מושמע ללא כתוביות או תמונת רקע?",
+      "מהו התפקיד הדידקטי? תמיכה בלמידה רב-חושית, או הנגשת טקסט לתלמידים עם קשיי קריאה?",
+    ],
+    tips: [
+      "להגדיר את מטרת ההאזנה ואת המשימה שעל התלמיד לבצע במהלך השמע או אחריו.",
+      "אם מדובר בקטע ארוך — לעצור בנקודות זמן מוגדרות ולבקש מהתלמיד פעולה קטנה.",
+      "ניתן לצרף תמליל לטובת תלמידים שמתקשים בשמיעה.",
+    ],
+  },
+  {
+    imageSrc: contentNoteIcon,
+    title: "הערה",
+    desc: "צירוף הערות לתלמיד מחוץ לרצף הלמידה — הבהרה, הרחבה או הנחיה.",
+    color: "lime",
+    questions: [
+      "אילו סוגי הערות יכולות לתרום ללמידה בקורסים שלכם?",
+      "מתי נכון לשלב הערה? להבהרת מידע, להרחבה (״הידעת״), או כהנחיה כללית?",
+    ],
+    tips: [
+      "להשתמש בהערה כשרוצים לומר משהו שאינו חלק מרצף הלמידה — הנחיה או הבהרה.",
+      "ניתן ליצור הערות בצבעים שונים — שימוש עקבי בצבע מסייע לזיהוי אופי ההערה.",
+    ],
+  },
 ];
 
-const exerciseComponents = [
-  { imageSrc: exerciseParagraphIcon, title: "פסקה", desc: "תרגיל פתוח עם תיבת תשובה. תומך בפסקה ריקה, השלמת טקסט קיים או משיכת תשובה לטבלה.", color: "teal" as const },
-  { imageSrc: exerciseShortAnswerIcon, title: "תשובה קצרה", desc: "שאלה אחת או רצף שאלות קצרות. אפשרות להגדיר תשובה מדויקת לבדיקה אוטומטית (מילה, שורש וכו׳).", color: "sky" as const },
-  { imageSrc: exerciseDragAnswerIcon, title: "משיכת תשובה", desc: "גרירת מילים או ביטויים למיקום הנכון בטקסט. תומך בלמידה אקטיבית ובארגון מידע.", color: "mint" as const },
-  { imageSrc: exerciseChoiceIcon, title: "בחירה מרובה", desc: "שאלות אמריקאיות עם תשובה אחת או מספר תשובות נכונות. מתאים לבדיקת ידע ולתרגול ממוקד.", color: "olive" as const },
+const exerciseComponents: ExpandableComponent[] = [
+  {
+    imageSrc: exerciseParagraphIcon,
+    title: "פסקה",
+    desc: "תרגיל עם תשובה פתוחה — פסקה ריקה, השלמת טקסט קיים, או משיכת תשובה לטבלה.",
+    color: "teal",
+    questions: [
+      "האם המטרה היא הבעה חופשית (ואז תיבת טקסט ריקה)?",
+      "האם המטרה היא קריאה פעילה הדורשת עבודה עם הטקסט (ואז נספק טקסט קיים לעריכה)?",
+      "האם המטרה היא ארגון ומיון מידע (ואז נצרף תבנית מובנית כמו טבלה או שלד לכתיבה)?",
+      "בעידן ה-AI — מהו הערך המוסף של משימת פסקה? שיקוף עמדה אישית, ניתוח מקורות או תרגול מיומנות?",
+    ],
+    tips: [
+      "להשתמש בשאלות פתוחות שאין להן תשובה חד-משמעית, או לתרגול ניסוח, הבעה וארגון ידע.",
+      "בטבלה ניתן לשלב פיגומים: קריטריונים להשוואה, מחסן מילים, תחילת משפט או רמזים בטקסט.",
+    ],
+  },
+  {
+    imageSrc: exerciseShortAnswerIcon,
+    title: "תשובה קצרה",
+    desc: "תרגיל עם תשובה קצרה — שאלה אחת או רצף שאלות. אפשרות להגדרת בדיקה אוטומטית.",
+    color: "sky",
+    questions: [
+      "מתי נייצר רצף של תשובות קצרות באותו רכיב, ומתי נפריד לתרגילים נפרדים?",
+      "באילו מצבים נרצה שתלמיד ינסח באופן חופשי? לשליפת מידע ממוקד, או לבניית טיעון (אז נעדיף פסקה)?",
+    ],
+    tips: [
+      "כאשר יש רק תשובה אחת נכונה (כמו שורש או ציטוט מסוים) — להגדיר בדיקה אוטומטית.",
+      "פיצול משימה מורכבת לשדות קטנים מאפשר תרגול מבלי לאבד את ההקשר.",
+    ],
+  },
+  {
+    imageSrc: exerciseDragAnswerIcon,
+    title: "משיכת תשובה",
+    desc: "התלמיד גורר תשובה למקומה. תומך בלמידה אקטיבית ובארגון מידע.",
+    color: "mint",
+    questions: [
+      "האם נרצה שהתלמיד יראה את תשובתו הקודמת כדי לתקן/לדייק אותה לאור ידע חדש?",
+      "האם הצגת התשובה הקודמת עוזרת לתלמיד להתמקד, או עלולה לקבע אותו למחשבה ישנה?",
+    ],
+    tips: [
+      "כיום זמין ברכיבי בחירה, תשובה קצרה ופסקה.",
+      "להפעלת מצב משיכת תשובה — יש לפנות לתמיכה לעזרה.",
+    ],
+  },
+  {
+    imageSrc: exerciseChoiceIcon,
+    title: "בחירה",
+    desc: "שאלות אמריקאיות עם תשובה אחת או מספר תשובות נכונות.",
+    color: "olive",
+    questions: [
+      "מהי מטרת המשימה — זיהוי עובדה (בחירה בודדת) או בחינת מורכבות עם מספר היבטים נכונים (בחירה מרובה)?",
+      "מתי נבחר בשאלה עם תשובה יחידה ומתי בבחירה מרובה הדורשת יכולת הכללה?",
+    ],
+    tips: [
+      "השלמת מילים, בחירה או התאמה נותנים לתלמיד ביטחון — התשובה מולו ועליו רק לזהותה.",
+      "לבחור מסיחים שעוזרים לוודא הבנה, בלי לייצר בלבול שמתסכל את התלמידים לשווא.",
+    ],
+  },
+  {
+    icon: <Highlighter className="h-9 w-9" />,
+    title: "סימון",
+    desc: "תרגיל בו התלמיד מסמן מילים או ביטויים בכמה קטגוריות צבעוניות.",
+    color: "lime",
+    questions: [
+      "מהי מטרת המשימה? זיהוי ושיקוף של מידע (איתור מילים) או מיון וסיווג (עובדה מול טיעון, סיבה מול תוצאה)?",
+    ],
+    tips: [
+      "סימון מרובה — להגדיר כמה קטגוריות שונות, ולכל אחת צבע ייחודי.",
+      "כאשר אפשרויות הסימון אינן חד-משמעיות — מומלץ להגדיר את התרגיל ללא ציון.",
+    ],
+  },
+  {
+    icon: <SlidersHorizontal className="h-9 w-9" />,
+    title: "טווח",
+    desc: "התלמיד מדרג את מידת ההסכמה, ההבנה או התחושה על סולם רציף.",
+    color: "sky",
+    questions: [
+      "להשתמש בשאלת טווח רגילה או בשאלת סקר מסוג טווח (שיתופית)?",
+      "מהי מטרת המשימה — רפלקטיבית, הבעת עמדה או השערה?",
+    ],
+    tips: [
+      "להגדיר באופן ברור את העוגנים — מה מופיע בקצוות.",
+      "מספר אי-זוגי מאפשר עמדה נייטרלית; מספר זוגי מחייב נקיטת עמדה.",
+      "מתאים כשאלה מקדימה לבדיקת עמדה או כרפלקציה — כדאי לאפשר לתלמיד להסביר.",
+    ],
+  },
+  {
+    icon: <UploadCloud className="h-9 w-9" />,
+    title: "העלאת קובץ",
+    desc: "התלמידים יכולים להעלות תמונות, סרטונים, מצגות, קבצי PDF ועוד.",
+    color: "teal",
+    questions: [
+      "מהו הערך המוסף במשימה שמבוצעת מחוץ לסביבה הדיגיטלית? תיעוד תופעה, ראיון, או ייצוג ידע דרך כתיבה ושרטוט?",
+    ],
+    tips: ["להגדיר לתלמיד פורמט הגשה רצוי (PDF, JPG וכו׳)."],
+  },
+  {
+    icon: <Mic className="h-9 w-9" />,
+    title: "הקלטה",
+    desc: "התלמידים מקליטים תשובות קוליות.",
+    color: "mint",
+    questions: [
+      "מה הערך המוסף — תרגול הגייה ושטף, חלופה לכתיבה לתלמידים שמתקשים, או תיעוד תהליך (פודקאסט/חשיבה בקול)?",
+    ],
+    tips: [
+      "מומלץ כאשר חשוב לשמוע את התלמיד עונה — לא רק לגיוון.",
+      "להנחות את התלמידים להקליט במקום שקט ככל האפשר.",
+      "להגדיר זמן מינימום ומקסימום להקלטה.",
+      "אין בדיקה אוטומטית — המורה בודק/ת באופן ידני.",
+    ],
+  },
+  {
+    icon: <PenLine className="h-9 w-9" />,
+    title: "לוח ציור",
+    desc: "תרגיל ציור חופשי או ציור על גבי תמונה לבחירתכם.",
+    color: "olive",
+    questions: ["כיצד לוח הציור מקדם את הלמידה — תוצר גרפי, או ערוץ ביטוי נוסף לייצוג ידע?"],
+    tips: ["ניתן להטמיע תמונה/טקסט/מפה כרקע קבוע, שעליו התלמיד יסמן מבלי למחוק את המקור."],
+  },
+  {
+    icon: <TextCursorInput className="h-9 w-9" />,
+    title: "השלמת מילים",
+    desc: "השלמה דרך בנק מילים, רשימה נפתחת או כתיבה חופשית.",
+    color: "lime",
+    questions: [
+      "האם המשימה מהווה פיגום לקראת שאלה פתוחה ומורכבת יותר?",
+      "אילו מילים נבחר למחוק — מילים הקשורות לתוכן או מילות קישור?",
+      "באיזה סוג השלמה נבחר — בנק מילים, רשימה נפתחת או השלמה חופשית?",
+      "באילו מצבים נרצה להוסיף מסיחים? האם המסיחים מאתגרים מספיק?",
+    ],
+    tips: [
+      "השלמת מילים, בחירה או התאמה נותנים לתלמיד ביטחון — התשובה מולו.",
+      "השלמת מילים היא דרך טובה לוודא הבנה מתוך הקשר.",
+    ],
+  },
+  {
+    icon: <Shuffle className="h-9 w-9" />,
+    title: "התאמה",
+    desc: "משימות התאמה — תמונה, תמונה וטקסט, או טקסט בלבד.",
+    color: "sky",
+    questions: [
+      "באילו מצבים נרצה להוסיף מסיחים?",
+      "האם הקשר בין הפרטים ברור וחד-משמעי, או שעלולה להיווצר תסכול בגלל כפל משמעויות?",
+    ],
+    tips: [
+      "מתאים להערכת ידע הקשרי (אוצר מילים/מושגים, סמלים).",
+      "מתאים לזיהוי קשרים: סיבה-תוצאה, בעיה-פתרון, מושג-ייצוג ויזואלי.",
+    ],
+  },
+  {
+    icon: <Layers className="h-9 w-9" />,
+    title: "מיון",
+    desc: "מיון של מילים או משפטים לקבוצות. ניתן להוסיף מסיחים שלא שייכים לאף קטגוריה.",
+    color: "teal",
+    questions: [
+      "מתי נשתמש בהתאמה ומתי במיון? בדיקת ידע עובדתי (התאמה) מול ביצוע הבנה ויישום (מיון).",
+      "האם נציין במפורש מה הקטגוריות?",
+      "האם נשתמש במסיחים?",
+    ],
+    tips: ["מתאים להבנת קריטריונים ומאפיינים — הן כהערכה, והן כביצוע הבנה של מבנה, תהליך וקשרים."],
+  },
+  {
+    icon: <ArrowDownUp className="h-9 w-9" />,
+    title: "סידור",
+    desc: "סידור של מילים, משפטים או תמונות ברצף.",
+    color: "mint",
+    questions: ["האם המטרה היא הבנת תהליכים, רצף כרונולוגי או היסטורי?"],
+    tips: [
+      "מתאים להבנת שלבים בתהליך או רצף אירועים.",
+      "ניתן להשתמש לדירוג על פי סולם ערכים או חשיבות בעיני התלמיד — ללא בדיקה אוטומטית.",
+    ],
+  },
+  {
+    icon: <Gamepad2 className="h-9 w-9" />,
+    title: "משחק AI",
+    desc: "יצירת משחקים אינטראקטיביים בעזרת AI בתוך הבילדר. המערכת בודקת ומשקפת תוצאות.",
+    color: "olive",
+    questions: [
+      "מהי מטרת המשחק — הקניה או תרגול?",
+      "באיזה שלב בשיעור נכון לשלב משחק?",
+      "איזה ידע נרצה שייוותר עם התלמיד בסיום המשחק?",
+    ],
+    tips: [
+      "כיום היצירה נעשית בעזרת פרומפט בודד — מומלץ לבקש עזרה מ-AI בכתיבת הפרומפט.",
+      "לימוד כללי משחק חדשים דורש ריכוז והבנה גבוהים מהתלמיד.",
+      "המערכת יודעת להעריך את המשימה ולתת ציון.",
+    ],
+  },
+  {
+    icon: <UsersIcon className="h-9 w-9" />,
+    title: "לוח שיתופי",
+    desc: "כלי שיתופי מסוג Padlet — תלמידים מעלים תוצרים ורואים את חבריהם.",
+    color: "lime",
+    questions: [
+      "מהו הערך המוסף של למידה שיתופית בשלב זה — חשיפה למגוון דעות, השראה, למידת עמיתים, גיבוש קהילה?",
+      "כיצד נדאג שהתלמיד יפיק ערך מהצפייה בתוצרי חבריו?",
+      "האם ננחה לסוג תוצר מסוים או ניתן יד חופשית?",
+    ],
+    tips: [
+      "מומלץ למשימה אחת בלבד עם הנחיה ברורה.",
+      "להגביר שיתופיות — לבקש מהתלמידים להגיב לדברי חבריהם.",
+      "מומלץ לשלב באסיף השיעור.",
+    ],
+  },
+  {
+    icon: <BarChart3 className="h-9 w-9" />,
+    title: "סקר",
+    desc: "אמריקאי, טווח, בעד ונגד או כרטיסיות — תלמידים רואים מה ענו אחרים.",
+    color: "sky",
+    questions: ["האם הסקר נועד לעורר סקרנות או להציג למשתמש את תשובתו ביחס לקבוצה?"],
+    tips: ["להתייחס לתוצאות הסקר בהמשך השיעור."],
+  },
+  {
+    icon: <Cloud className="h-9 w-9" />,
+    title: "ענן מילים",
+    desc: "כלי ויזואלי המזקק טקסט רב לתמונה אחת — גודל המילה משקף את שכיחותה.",
+    color: "teal",
+    questions: [
+      "מהי מטרת ענן המילים — סיעור מוחות או זיהוי דפוסים ושיקוף תמונת מצב?",
+      "האם ההיבט הוויזואלי משרת את הלמידה?",
+      "האם אופי התשובות הצפוי קצר וחזרתי דיו לייצר ענן אפקטיבי?",
+    ],
+    tips: [
+      "מתאים לבירור ידע קודם, זיהוי דגשים בטקסט ושאלות רפלקטיביות.",
+      "להנחות את התלמידים לכתוב עד שתי מילים.",
+      "להתייחס לתמונה שעלתה מהענן בהמשך השיעור.",
+    ],
+  },
+  {
+    icon: <History className="h-9 w-9" />,
+    title: "משיכת תשובה לאורך הקורס",
+    desc: "תשובת התלמיד תופיע בהמשך הקורס — באותו שיעור או בשיעורים הבאים.",
+    color: "navy",
+    questions: [
+      "האם נרצה שהתלמיד יראה את תשובתו הקודמת כדי לתקן/לדייק לאור ידע חדש, או לאסוף ידע לאורך הלמידה?",
+      "האם הצגת התשובה הקודמת עוזרת להתמקד או מקבעת חשיבה ישנה?",
+    ],
+    tips: [
+      "כיום זמין ברכיבי בחירה, תשובה קצרה ופסקה.",
+      "להפעלה — יש לפנות לתמיכה.",
+    ],
+  },
 ];
 
-const workflow = [
-  { num: "01", icon: Lightbulb, title: "תכנון פדגוגי", desc: "בחירת מטרות הלמידה, רצף הרכיבים והדרך בה התלמיד יחווה את החומר.", color: "lime" as const },
-  { num: "02", icon: Palette, title: "בנייה ויזואלית", desc: "גרירה ושילוב רכיבי תוכן ותרגול בקנבס מותאם RTL — ללא צורך בקוד.", color: "sky" as const },
-  { num: "03", icon: ShieldCheck, title: "בדיקת נגישות", desc: "סקירה אוטומטית של ניגודיות, ARIA וניווט מקלדת לפני פרסום.", color: "mint" as const },
-  { num: "04", icon: Rocket, title: "פרסום ושיתוף", desc: "שליחת השיעור לתלמידים בלינק, מעקב אחר התקדמות וניתוח תוצאות.", color: "teal" as const },
+const scaffoldingComponents: ExpandableComponent[] = [
+  {
+    icon: <Highlighter className="h-9 w-9" />,
+    title: "מילה חמה",
+    desc: "טקסט צף לתרגום או הסבר. קיים רק ברכיב טקסט — לא על שאלות.",
+    color: "lime",
+    questions: [
+      "האם המושג שבחרנו להסביר הכרחי להבנת הטקסט או המשימה?",
+      "האם המידע ב״מילה החמה״ חיוני להשלמת המשימה הנוכחית?",
+      "באיזו מידה הוספת המילה החמה מפחיתה עומס קוגניטיבי, ואולי כדאי לשלב את ההסבר בטקסט הגלוי?",
+    ],
+    tips: [
+      "מתאים להבהרת מושג משמעותי להבנת התוכן בתוך טקסט.",
+      "להגביל את מספר המילים החמות בפסקה.",
+      "לנסח את ההסבר באופן תמציתי, בהיר וקצר.",
+    ],
+  },
+  {
+    icon: <Lightbulb className="h-9 w-9" />,
+    title: "רמז",
+    desc: "קיים לצד כל שאלה — ניתן להכניס טקסט, אודיו, הטמעה, תמונה או סרטון. לא קיים ברכיב טקסט.",
+    color: "sky",
+    questions: [
+      "האם הרמז מתפקד כפיגום שמכוון לדרך הפתרון, או כ״קיצור דרך״ שחוסך מהתלמיד את המאמץ המחשבתי?",
+      "אילו רמזים יסייעו לתלמידים שמתקשים בשאלות מסדר גבוה?",
+      "האם להוסיף היבט רפלקטיבי שישקף לתלמיד את אופן השימוש ברמזים?",
+    ],
+    tips: [
+      "ניתן להשתמש כהנחיה, הבהרה או דוגמה — כפיגום עבור התלמיד.",
+      "ניתן להוסיף טקסט, תמונה או קישור.",
+    ],
+  },
+  {
+    icon: <Volume2 className="h-9 w-9" />,
+    title: "הקראה",
+    desc: "הוספת שמע ברכיב טקסט — באמצעות AI או הקלטה ידנית.",
+    color: "teal",
+    questions: [
+      "באיזה אופן ההקראה מסייעת — פיגום לתלמיד שמתקשה בקריאה, או הדגמת קריאה נכונה עם הטעמה ועצירות?",
+      "אם המטרה היא לשפר שטף קריאה — האם ההקראה מונעת תרגול משמעותי?",
+      "האם שילוב הקראה וקריאה יוצר עומס?",
+      "האם הקראה ב-AI מתאימה, או שיש להקליט באופן עצמאי (דיוק בהגייה ובמבטא)?",
+    ],
+    tips: [
+      "בטקסט עם דיוקים מיוחדים בקריאה (למשל תנ״ך) — מומלץ הקלטה ולא AI.",
+      "קיים רק על רכיב טקסט.",
+    ],
+  },
+  {
+    icon: <LifeBuoy className="h-9 w-9" />,
+    title: "כלי עזר צדיים",
+    desc: "תוכן מלווה זמין לתלמיד לאורך כל השיעור — תנ״ך שטיינזלץ, מפות, מילון מונחים ועוד.",
+    color: "mint",
+    questions: [
+      "האם כלי העזר משרתים את המשימה או מהווים הסחת דעת טכנית?",
+      "האם הם צריכים להיות נגישים לאורך כל הקורס או רק בשיעורים ספציפיים?",
+      "כמה כלי עזר נרצה להנגיש?",
+      "האם להפנות במשימות מסוימות, או לתת שימוש עצמאי?",
+    ],
+    tips: [
+      "להוסיף הסבר על כלי העזר ודרך השימוש בפעם הראשונה שתלמידים פוגשים אותו.",
+      "ניתן לבחור את הסמל של כלי העזר שיופיע בצד.",
+      "לבחירת הפתרון הטכנולוגי — מומלץ להתייעץ עם הצוות הדיגיטלי.",
+    ],
+  },
+  {
+    icon: <GitBranch className="h-9 w-9" />,
+    title: "בחירת תלמיד (שאלת נתיבים)",
+    desc: "בחירה של התלמיד במסלול בו ימשיך ללמוד. הדגש על עצמאות הבחירה.",
+    color: "olive",
+    questions: [
+      "האם הבחירה היא לפי רמת קושי, סוג תוצר או נושא העמקה?",
+      "באיזו נקודה הנתיבים נפגשים חזרה?",
+      "האם התלמיד חוזר לשיעור עם ידע ייחודי שעליו לשתף, או שכולם חוזרים לאותה נקודת בסיס?",
+    ],
+    tips: [
+      "להפעלת שאלת הנתיבים — לפנות לתמיכה בווצאפ ולציין שם הקורס, השיעור, קישור, המקטע והעמודים של כל נתיב.",
+    ],
+  },
+  {
+    icon: <RouteIcon className="h-9 w-9" />,
+    title: "מסלולים",
+    desc: "ניתוב אוטומטי של תלמיד למסלול למידה מותאם, על פי לוגיקה של רמת קושי או שליטה במיומנות.",
+    color: "navy",
+    questions: [
+      "באילו מצבים נרצה לבחור עבור התלמיד את המסלול אליו יגיע?",
+      "האם ואיך נשקף לתלמיד את המסלול בו הוא נמצא?",
+      "מה התנאים לפיהם המערכת תנתב את התלמיד?",
+    ],
+    tips: ["מומלץ להיעזר בתמיכה כדי ללמוד על האפשרויות של מסלולים."],
+  },
+  {
+    icon: <StickyNote className="h-9 w-9" />,
+    title: "הערה",
+    desc: "צירוף הערות והבהרות לתלמיד — מחוץ לרצף הלמידה, בצבעים שונים.",
+    color: "lime",
+    questions: [
+      "אילו סוגי הערות יכולות לתרום ללמידה בקורסים שלכם?",
+      "מתי נכון לשלב הערה — הבהרת מידע, הרחבה (״הידעת״) או הנחיה כללית?",
+    ],
+    tips: [
+      "להשתמש כשרוצים לומר משהו שאינו חלק מרצף הלמידה — הנחיה או הבהרה.",
+      "ניתן ליצור הערות בצבעים שונים — שימוש עקבי מסייע לזיהוי אופי ההערה.",
+    ],
+  },
 ];
-
-const principles = [
-  { icon: Accessibility, title: "נגישות מובנית", desc: "כל רכיב נבנה בהתאם לתקן WCAG 2.1 AA — ניווט מקלדת, ARIA, ניגודיות צבעים ותמיכה בקוראי מסך.", color: "bg-amit-lime/15", iconColor: "text-amit-olive" },
-  { icon: Layers, title: "ארכיטקטורת רכיבים", desc: "רכיבים מודולריים, Composition-friendly, עם API ברור. קלים להרחבה ולקסטומיזציה.", color: "bg-amit-sky/15", iconColor: "text-amit-teal" },
-  { icon: ShieldCheck, title: "פדגוגיה ראשונה", desc: "כל רכיב מלווה בשאלות למחשבה ובהמלצות לביצוע — תיעוד שמשלב מפתחים ומורים.", color: "bg-amit-mint/15", iconColor: "text-amit-forest" },
-  { icon: Users, title: "שיתופי ורב-משתמשי", desc: "מורים יכולים לשתף שיעורים, להעתיק תבניות ולעבוד יחד על אותו מערך לימוד.", color: "bg-amit-lime/15", iconColor: "text-amit-olive" },
-];
-
-const driveIcons = {
-  start: "1n24RcSHlP_kalrDjtDWAkbGfDOo1AVUx",
-  instructions: "11brKm4UhEQOL3dG4NbJnRYYUugpOnV4r",
-  settings: "1Z3dKftDfk8_p_fj1V2t-yrcWpUNMj2Is",
-  trophy: "1sc7nR8OGs-Vmp11ThxwtBMm3Q0uc2qen",
-  hint: "1f4OwKXsOmIudR0stREmPTkBzi1tLd8RZ",
-  levels: "1oFqmMOL8gw7XHi0Q7fGdK-EQ1JQmKhOg",
-  menu: "1w4vgV6BhjEoUX7r8zcdil4TdqoZICGHp",
-  timer: "1HgdXB6UDu2oSCaM_Ip76KS4ecTCSQWkE",
-  navForward: "14ZYoGYRBytjpVQKIMrhL7O1fz0g0EFho",
-  navBack: "1n4wFOT_gFbVTpvFKbPkto8K4_3-3ZXkQ",
-  coins: "1gPyOe2mopw1D_fSCuVaFpDtp-S54jHqj",
-  heart: "1DL9Y1-qg4j79TVoly6GVe1ziwTwfkKfD",
-  streak: "1NxEIWmZ3i_9TWnSGAQ2UuDJnlTlgyADs",
-  reset: "1Fvt--8I3VF9zK_Bi6_Dech_COZbAwuJ-",
-  home: "1GQcqcC7jSx1OPvKq39TxS_jhNrokQ4J9",
-};
 
 function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -207,9 +519,11 @@ function LandingPage() {
 
   return (
     <PageShell>
-
       {/* Hero */}
-      <section ref={heroRef} className="relative z-10 px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 pb-16 sm:pb-20 max-w-6xl mx-auto text-center">
+      <section
+        ref={heroRef}
+        className="relative z-10 px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 pb-12 sm:pb-16 max-w-6xl mx-auto text-center"
+      >
         <motion.div style={{ y: heroY, opacity: heroOpacity }}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -223,7 +537,7 @@ function LandingPage() {
             >
               <Sparkles className="h-4 w-4" />
             </motion.span>
-            תיעוד למפתחים · גרסה 1.0
+            מדריך רכיבים · גרסה 1.0
           </motion.div>
 
           <motion.h1
@@ -245,416 +559,107 @@ function LandingPage() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-amit-navy/75 leading-relaxed"
           >
-            סביבת בנייה ליצירת שיעורים אינטראקטיביים, נגישים ומותאמים אישית.
-            רכיבי הצגת תוכן ורכיבי תרגול שמאפשרים למורים לבנות חוויית למידה עשירה — ולכם, המפתחים, ארכיטקטורת רכיבים ברורה ומודולרית.
+            רכיבי הצגת תוכן, רכיבי תרגול ורכיבי פיגומים — הכול במקום אחד.
+            <br />
+            לחיצה על כל רכיב פותחת פירוט מלא של שאלות למחשבה והמלצות לביצוע.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
           >
             <motion.a
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              href="#components"
+              href="#content"
               className="group inline-flex items-center gap-3 bg-amit-navy text-white px-7 py-3.5 rounded-full font-bold shadow-[var(--shadow-soft)] hover:bg-amit-teal transition"
             >
               צלילה לרכיבים
               <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition" />
             </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              href="#stack"
-              className="inline-flex items-center gap-2 bg-white/70 backdrop-blur border border-amit-navy/15 text-amit-navy px-6 py-3.5 rounded-full font-semibold hover:bg-white transition"
-            >
-              <Sparkles className="h-5 w-5" />
-              המדריך הטכני
-            </motion.a>
-          </motion.div>
-
-          {/* Stat strip */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4"
-          >
-            {[
-              { k: "10+", v: "סוגי רכיבים" },
-              { k: "WCAG 2.1", v: "תקן נגישות" },
-              { k: "RTL", v: "תמיכה מלאה" },
-              { k: "AI", v: "יצירת תכנים" },
-            ].map((s) => (
-              <motion.div
-                variants={staggerItem}
-                whileHover={{ y: -4, scale: 1.02 }}
-                key={s.v}
-                className="bg-white/70 backdrop-blur rounded-2xl p-5 border border-amit-navy/10 shadow-[var(--shadow-card)]"
-              >
-                <div className="text-3xl font-black text-amit-teal">{s.k}</div>
-                <div className="text-sm font-semibold text-amit-navy/70 mt-1">{s.v}</div>
-              </motion.div>
-            ))}
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Workflow timeline */}
-      <AnimatedSection id="workflow" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="text-xs sm:text-sm font-bold text-amit-olive tracking-widest uppercase">איך זה עובד</div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">מרעיון לשיעור — בארבעה צעדים</h2>
-          <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
-            תהליך ברור שמלווה את המורה משלב התכנון ועד הפרסום לתלמידים.
-          </p>
-        </div>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 relative"
-        >
-          {workflow.map((w) => {
-            const Icon = w.icon;
-            const bg = { lime: "bg-amit-lime", sky: "bg-amit-sky", mint: "bg-amit-mint", teal: "bg-amit-teal" }[w.color];
-            return (
-              <motion.div
-                key={w.num}
-                variants={staggerItem}
-                whileHover={{ y: -6 }}
-                className="relative bg-white rounded-3xl p-6 border border-amit-navy/8 shadow-[var(--shadow-card)] overflow-hidden"
-              >
-                <div className={`absolute -top-6 -left-6 h-20 w-20 ${bg} opacity-10 rounded-full blur-2xl`} />
-                <div className="text-5xl font-black text-amit-navy/10 absolute top-3 left-4">{w.num}</div>
-                <div className={`${bg} h-12 w-12 rounded-2xl flex items-center justify-center mb-4 ring-4 ring-white/40`}>
-                  <Icon className="h-6 w-6 text-white" strokeWidth={2.2} />
-                </div>
-                <h3 className="text-lg font-bold mb-2">{w.title}</h3>
-                <p className="text-amit-navy/70 text-sm leading-relaxed">{w.desc}</p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </AnimatedSection>
-
       {/* Content Components */}
-      <AnimatedSection id="components" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-10 gap-4">
-          <motion.div whileHover={{ rotate: 8, scale: 1.08 }}>
-            <StyledCircularIcon driveId={driveIcons.instructions} alt="הוראות" color="lime" size="lg" />
-          </motion.div>
-          <div>
-            <div className="text-xs sm:text-sm font-bold text-amit-lime tracking-widest uppercase">חלק א׳</div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי הצגת תוכן</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
-              רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות.
-            </p>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 bg-gradient-to-l from-amit-lime/20 via-white to-amit-lime/10 rounded-2xl p-3 sm:p-5 border border-amit-lime/30 shadow-[var(--shadow-card)] overflow-x-auto"
-        >
-          <img
-            src={toolbarContent}
-            alt="סרגל רכיבי הצגת תוכן בבילדר"
-            className="mx-auto w-full max-w-3xl h-auto"
-            loading="lazy"
-          />
-        </motion.div>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {contentComponents.map((c) => (
-            <ComponentCard key={c.title} {...c} />
-          ))}
-        </motion.div>
-
-        <div className="mt-10">
-          <h3 className="text-xl sm:text-2xl font-bold text-center mb-5 text-amit-navy">העמקה — שאלות ותשובות לכל רכיב</h3>
-          <ComponentDetails entries={contentDetails} accent="lime" />
-        </div>
-      </AnimatedSection>
+      <ComponentSection
+        id="content"
+        eyebrow="חלק א׳"
+        eyebrowColor="text-amit-lime"
+        title="רכיבי הצגת תוכן"
+        subtitle="רכיבים שמשמשים להעברת מידע לתלמיד — טקסט, מדיה, הטמעות והערות."
+        items={contentComponents}
+        gridCols="grid sm:grid-cols-2 lg:grid-cols-2 gap-5"
+      />
 
       {/* Exercise Components */}
-      <AnimatedSection className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-10 gap-4">
-          <motion.div whileHover={{ rotate: -8, scale: 1.08 }}>
-            <StyledCircularIcon driveId={driveIcons.trophy} alt="הישגים" color="sky" size="lg" />
-          </motion.div>
-          <div>
-            <div className="text-xs sm:text-sm font-bold text-amit-mint tracking-widest uppercase">חלק ב׳</div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי תרגול</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
-              רכיבים אינטראקטיביים שמאפשרים לתלמיד לתרגל, לכתוב ולהיבדק.
-            </p>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 bg-gradient-to-l from-amit-sky/20 via-white to-amit-sky/10 rounded-2xl p-3 sm:p-5 border border-amit-sky/30 shadow-[var(--shadow-card)] overflow-x-auto"
-        >
-          <img
-            src={toolbarExercise}
-            alt="סרגל רכיבי תרגול בבילדר"
-            className="mx-auto w-full max-w-4xl h-auto"
-            loading="lazy"
-          />
-        </motion.div>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid sm:grid-cols-2 gap-5"
-        >
-          {exerciseComponents.map((c) => (
-            <ComponentCard key={c.title} {...c} />
-          ))}
-        </motion.div>
-
-        <div className="mt-10">
-          <h3 className="text-xl sm:text-2xl font-bold text-center mb-5 text-amit-navy">סוגי תרגילים מתקדמים וכלים שיתופיים</h3>
-          <ComponentDetails entries={exerciseDetails} accent="sky" />
-        </div>
-      </AnimatedSection>
+      <ComponentSection
+        id="exercise"
+        eyebrow="חלק ב׳"
+        eyebrowColor="text-amit-mint"
+        title="רכיבי תרגול"
+        subtitle="רכיבים אינטראקטיביים שמאפשרים לתלמיד לתרגל, לכתוב, לשתף וליצור."
+        items={exerciseComponents}
+        gridCols="grid sm:grid-cols-2 lg:grid-cols-2 gap-5"
+      />
 
       {/* Scaffolding Components */}
-      <AnimatedSection className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-10 gap-4">
-          <motion.div whileHover={{ rotate: 8, scale: 1.08 }}>
-            <StyledCircularIcon driveId={driveIcons.hint} alt="פיגומים" color="navy" size="lg" />
-          </motion.div>
-          <div>
-            <div className="text-xs sm:text-sm font-bold text-amit-navy tracking-widest uppercase">חלק ג׳</div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">רכיבי פיגומים</h2>
-            <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">
-              רכיבים תומכי-למידה — רמזים, הקראה, כלי עזר, מסלולים והערות שעוטפים את חוויית התלמיד.
-            </p>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-amit-navy rounded-2xl p-3 sm:p-5 border border-amit-navy/30 shadow-[var(--shadow-card)] overflow-x-auto"
-        >
-          <img
-            src={toolbarScaffolding}
-            alt="סרגל רכיבי פיגומים בבילדר"
-            className="mx-auto w-full max-w-3xl h-auto"
-            loading="lazy"
-          />
-        </motion.div>
-      </AnimatedSection>
-
-      {/* Icon Library Showcase */}
-      <AnimatedSection id="icons" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="text-xs sm:text-sm font-bold text-amit-teal tracking-widest uppercase">ספריית UI</div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">אייקונים עגולים מותאמים אמית</h2>
-          <p className="text-amit-navy/70 mt-3 max-w-2xl mx-auto">
-            ערכת אייקונים עקבית למצבי המשחק והניווט בבילדר. כל אייקון מגיע עם Fallback אוטומטי
-            במקרה שתמונת המקור לא נטענת — לשמירה על שלמות עיצובית.
-          </p>
-        </div>
-
-        <div className="bg-white/60 backdrop-blur rounded-3xl border border-amit-navy/10 p-6 sm:p-8 md:p-10 shadow-[var(--shadow-card)]">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6 place-items-center"
-          >
-            <IconLabel id={driveIcons.start} label="התחל" color="lime" fallback={Sparkles} />
-            <IconLabel id={driveIcons.home} label="בית" color="navy" />
-            <IconLabel id={driveIcons.menu} label="תפריט" color="teal" />
-            <IconLabel id={driveIcons.settings} label="הגדרות" color="sky" />
-            <IconLabel id={driveIcons.instructions} label="הוראות" color="olive" />
-            <IconLabel id={driveIcons.hint} label="רמז" color="lime" />
-            <IconLabel id={driveIcons.timer} label="טיימר" color="forest" />
-            <IconLabel id={driveIcons.heart} label="לב" color="navy" />
-            <IconLabel id={driveIcons.coins} label="מטבעות" color="lime" />
-            <IconLabel id={driveIcons.trophy} label="גביע" color="sky" />
-            <IconLabel id={driveIcons.streak} label="סטרייק" color="teal" />
-            <IconLabel id={driveIcons.levels} label="רמות" color="mint" />
-            <IconLabel id={driveIcons.reset} label="איפוס" color="olive" />
-            <IconLabel id={driveIcons.navForward} label="קדימה" color="forest" />
-            <IconLabel id={driveIcons.navBack} label="אחורה" color="navy" />
-            <IconLabel id={driveIcons.menu} label="עוד" color="sky" />
-          </motion.div>
-        </div>
-      </AnimatedSection>
-
-      {/* Quote / Pedagogy banner */}
-      <AnimatedSection className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-5xl mx-auto">
-        <div className="relative bg-gradient-to-bl from-amit-lime/15 via-white to-amit-sky/15 rounded-[2.5rem] p-8 sm:p-12 md:p-16 border border-amit-navy/10 shadow-[var(--shadow-card)] text-center overflow-hidden">
-          <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-amit-lime/30 blur-3xl" />
-          <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-amit-sky/30 blur-3xl" />
-          <div className="relative">
-            <div className="text-6xl text-amit-lime/60 font-black leading-none mb-4">״</div>
-            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-amit-navy leading-snug max-w-3xl mx-auto">
-              הבילדר אינו רק כלי טכני — הוא מרחב חשיבה פדגוגית שמתרגם רעיון של מורה לחוויית למידה אינטראקטיבית, נגישה ומכבדת.
-            </p>
-            <div className="mt-6 text-sm font-semibold text-amit-teal tracking-wide">
-              ✦ עקרון הליבה של אמית דיגיטל
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Developer / Stack */}
-      <AnimatedSection id="stack" className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="text-xs sm:text-sm font-bold text-amit-forest tracking-widest uppercase">למפתחים</div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">עקרונות הארכיטקטורה</h2>
-        </div>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
-        >
-          {principles.map((p) => (
-            <FeatureBlock key={p.title} {...p} />
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 bg-amit-navy text-white rounded-3xl p-8 sm:p-10 md:p-14 relative overflow-hidden shadow-[var(--shadow-soft)]"
-        >
-          <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-amit-lime/30 blur-3xl animate-float-slow" />
-          <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-amit-sky/30 blur-3xl animate-float-slower" />
-          <div className="relative z-10 max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
-              מוכנים להתחיל לבנות?
-            </h2>
-            <p className="mt-4 text-white/80 text-base sm:text-lg leading-relaxed">
-              סקור את התיעוד המלא של הרכיבים, ה-Hooks וה-API. אם יש שאלות — צוות הפיתוח של אמית כאן בשבילך.
-            </p>
-          </div>
-        </motion.div>
-      </AnimatedSection>
-
+      <ComponentSection
+        id="scaffolding"
+        eyebrow="חלק ג׳"
+        eyebrowColor="text-amit-teal"
+        title="רכיבי פיגומים"
+        subtitle="רכיבים תומכי-למידה שעוטפים את חוויית התלמיד — רמזים, הקראה, כלי עזר ומסלולים."
+        items={scaffoldingComponents}
+        gridCols="grid sm:grid-cols-2 lg:grid-cols-2 gap-5"
+      />
     </PageShell>
   );
 }
 
-function ComponentCard({
-  imageSrc,
-  title,
-  desc,
-  color,
-}: {
-  imageSrc: string;
-  title: string;
-  desc: string;
-  color: "navy" | "sky" | "teal" | "mint" | "olive" | "lime" | "forest";
-}) {
-  const bgMap = {
-    navy: "bg-amit-navy",
-    sky: "bg-amit-sky",
-    teal: "bg-amit-teal",
-    mint: "bg-amit-mint",
-    olive: "bg-amit-olive",
-    lime: "bg-amit-lime",
-    forest: "bg-amit-forest",
-  };
-  return (
-    <motion.article
-      variants={staggerItem}
-      whileHover={{ y: -8, transition: { duration: 0.25 } }}
-      className="group relative bg-white rounded-2xl p-6 border border-amit-navy/8 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-soft)] transition-all duration-300 overflow-hidden"
-    >
-      <div className={`absolute -top-10 -left-10 h-32 w-32 ${bgMap[color]} opacity-0 group-hover:opacity-10 rounded-full blur-2xl transition-opacity duration-500`} />
-      <motion.div
-        whileHover={{ rotate: [0, -8, 8, 0] }}
-        transition={{ duration: 0.5 }}
-        className="h-18 w-18 sm:h-20 sm:w-20 rounded-3xl flex items-center justify-center mb-5 bg-white border border-amit-navy/8 shadow-[var(--shadow-card)] p-2.5"
-      >
-        <img src={imageSrc} alt={title} className="h-full w-full object-contain" loading="lazy" />
-      </motion.div>
-      <h3 className="text-xl font-bold mb-2 relative">{title}</h3>
-      <p className="text-amit-navy/70 text-sm leading-relaxed relative">{desc}</p>
-    </motion.article>
-  );
-}
-
-function IconLabel({
+function ComponentSection({
   id,
-  label,
-  color,
-  fallback,
+  eyebrow,
+  eyebrowColor,
+  title,
+  subtitle,
+  items,
+  gridCols,
 }: {
   id: string;
-  label: string;
-  color: "lime" | "navy" | "sky" | "teal" | "mint" | "olive" | "forest";
-  fallback?: typeof Sparkles;
-}) {
-  return (
-    <motion.div
-      variants={staggerItem}
-      whileHover={{ y: -4, scale: 1.05 }}
-      className="flex flex-col items-center gap-2"
-    >
-      <StyledCircularIcon driveId={id} alt={label} color={color} size="md" fallback={fallback} />
-      <span className="text-xs font-semibold text-amit-navy/70">{label}</span>
-    </motion.div>
-  );
-}
-
-function FeatureBlock({
-  icon: Icon,
-  title,
-  desc,
-  color,
-  iconColor,
-}: {
-  icon: typeof Accessibility;
+  eyebrow: string;
+  eyebrowColor: string;
   title: string;
-  desc: string;
-  color: string;
-  iconColor: string;
+  subtitle: string;
+  items: ExpandableComponent[];
+  gridCols: string;
 }) {
   return (
-    <motion.div
-      variants={staggerItem}
-      whileHover={{ y: -6 }}
-      className="bg-white rounded-2xl p-7 border border-amit-navy/8 shadow-[var(--shadow-card)] h-full"
+    <AnimatedSection
+      id={id}
+      className="relative z-10 px-4 sm:px-6 md:px-12 py-12 sm:py-16 max-w-6xl mx-auto"
     >
-      <div className={`${color} h-14 w-14 rounded-2xl flex items-center justify-center mb-5`}>
-        <Icon className={`h-7 w-7 ${iconColor}`} strokeWidth={2.2} />
+      <div className="text-center mb-10">
+        <div className={`text-xs sm:text-sm font-bold ${eyebrowColor} tracking-widest uppercase`}>
+          {eyebrow}
+        </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-2">{title}</h2>
+        <p className="text-amit-navy/70 mt-3 max-w-xl mx-auto">{subtitle}</p>
       </div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-amit-navy/70 text-sm leading-relaxed">{desc}</p>
-    </motion.div>
+
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        className={gridCols}
+      >
+        {items.map((c) => (
+          <ExpandableComponentCard key={c.title} {...c} />
+        ))}
+      </motion.div>
+    </AnimatedSection>
   );
 }
